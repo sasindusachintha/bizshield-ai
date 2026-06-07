@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Exito Official Site</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Exito is a full-stack platform that helps you discover market opportunities, build an MVP, and scale with data-driven insights.">
+
+  <link href="https://fonts.googleapis.com/css?family=Inter:400,600&display=swap" rel="stylesheet">
+  <!-- FIX: replaced hardcoded kit ID with standard CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <!-- FIX: navbar is now in its own sticky <header>; hero is a separate <section> below it -->
+  <header class="site-header">
+    <nav class="navbar">
+      <div class="logo"><a href="./index.html">Exito</a></div>
+      <ul class="nav-links">
+        <li><a href="./pages/dashboard.html">Dashboard</a></li>
+        <li><a href="./pages/analysis.html">Analysis</a></li>
+        <li><a href="./pages/ideas.html">Ideas</a></li>
+        <li><a href="./pages/plan.html">Plan</a></li>
+        <li><a href="./pages/marketing.html">Marketing</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero is now OUTSIDE the sticky header -->
+  <section class="hero">
+    <div class="container">
+      <h1>Transform your business vision into reality.</h1>
+      <p>Exito is a full-stack platform that helps you discover market opportunities, build an MVP, and scale with data-driven insights.</p>
+      <a href="./pages/dashboard.html" class="btn-primary">Get Started</a>
+    </div>
+  </section>
+
+  <main class="site-content">
+    <!-- Features -->
+    <section class="features">
+      <div class="container">
+        <h2>What We Offer</h2>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <i class="fas fa-lightbulb feature-icon"></i>
+            <h3>Idea Generation</h3>
+            <p>AI-driven tools generate 5 personalized business ideas based on your skills, budget, and interests.</p>
+          </article>
+          <article class="feature-card">
+            <i class="fas fa-chart-bar feature-icon"></i>
+            <h3>Business Analysis</h3>
+            <p>Deep-dive into market demand, competition level, risk profile, and startup cost estimates.</p>
+          </article>
+          <article class="feature-card">
+            <i class="fas fa-map feature-icon"></i>
+            <h3>Action Planning</h3>
+            <p>Get a full roadmap â€” setup steps, 7-day sprints, and 30-day milestone plans to launch fast.</p>
+          </article>
+          <article class="feature-card">
+            <i class="fas fa-bullhorn feature-icon"></i>
+            <h3>Marketing Automation</h3>
+            <p>Generate Instagram posts, ad copies, slogans, and social captions with one click.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+      <h2>Ready to start?</h2>
+      <a href="./pages/ideas.html" class="btn-secondary">Generate Your First Idea</a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 Exito. All rights reserved.</p>
+    <nav class="footer-nav">
+      <ul>
+        <li><a href="./pages/dashboard.html">Dashboard</a></li>
+        <li><a href="./pages/analysis.html">Analysis</a></li>
+        <li><a href="./pages/ideas.html">Ideas</a></li>
+        <li><a href="./pages/plan.html">Plan</a></li>
+        <li><a href="./pages/marketing.html">Marketing</a></li>
+      </ul>
+    </nav>
+  </footer>
+
+</body>
+</html>

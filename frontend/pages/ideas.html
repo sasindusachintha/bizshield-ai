@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exito – Generate Ideas</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="bg-dark text-light min-vh-100">
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary px-3 py-2">
+    <a class="navbar-brand fw-bold fs-5" href="../index.html"><i class="fas fa-bolt me-1"></i>Exito</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav ms-auto gap-1">
+        <li class="nav-item"><a class="nav-link" href="dashboard.html"><i class="fas fa-tachometer-alt me-1"></i>Dashboard</a></li>
+        <li class="nav-item"><a class="nav-link active fw-semibold" href="ideas.html"><i class="fas fa-lightbulb me-1"></i>Ideas</a></li>
+        <li class="nav-item"><a class="nav-link" href="analysis.html"><i class="fas fa-chart-bar me-1"></i>Analysis</a></li>
+        <li class="nav-item"><a class="nav-link" href="plan.html"><i class="fas fa-map me-1"></i>Plan</a></li>
+        <li class="nav-item"><a class="nav-link" href="marketing.html"><i class="fas fa-bullhorn me-1"></i>Marketing</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container py-4">
+
+    <div class="mb-4">
+      <h2 class="fw-bold"><i class="fas fa-lightbulb text-warning me-2"></i>Generate Business Ideas</h2>
+      <p class="text-muted">Tell us about your skills and interests — we'll generate 5 tailored startup ideas.</p>
+    </div>
+
+    <div class="card bg-dark border-secondary mb-4">
+      <div class="card-body p-4">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label fw-semibold">Your Skills <span class="text-danger">*</span></label>
+            <textarea id="input-skills" class="form-control bg-dark text-light border-secondary" rows="3"
+              placeholder="e.g. Web development, graphic design, copywriting, finance..."></textarea>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label fw-semibold">Interest / Niche <span class="text-danger">*</span></label>
+            <textarea id="input-interest" class="form-control bg-dark text-light border-secondary" rows="3"
+              placeholder="e.g. Health &amp; wellness, SaaS tools, e-commerce, education..."></textarea>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Available Budget <span class="text-muted">(optional)</span></label>
+            <div class="input-group">
+              <span class="input-group-text bg-dark text-muted border-secondary">$</span>
+              <input id="input-budget" type="number" min="0"
+                class="form-control bg-dark text-light border-secondary"
+                placeholder="e.g. 500">
+            </div>
+            <small class="text-muted">Leave blank if unknown</small>
+          </div>
+        </div>
+        <div class="mt-4">
+          <button id="btn-submit" class="btn btn-primary px-4">
+            <i class="fas fa-magic me-2"></i>Generate Ideas
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="board-content"></div>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/ideas.js"></script>
+</body>
+</html>
