@@ -7,8 +7,320 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="../css/style.css">
+  <script src="../js/theme.js" defer></script>
+
+  <style>
+    /* ═══════════════════════════════════════════════
+       3D ANIMATION LAYER — dashboard.html (ENHANCED)
+    ═══════════════════════════════════════════════ */
+
+    /* ── Three.js background canvas ── */
+    #bg-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      width: 100%; height: 100%;
+    }
+
+    /* ── Animated background orbs (supplement WebGL) ── */
+    .bg-orbs {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .bg-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+    }
+    .bg-orb-1 { width: 520px; height: 520px; background: radial-gradient(circle, rgba(15,118,110,1), transparent 70%); top: -200px; left: -160px; opacity: 0.07; animation: orbDrift 22s ease-in-out infinite; }
+    .bg-orb-2 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(37,99,235,1), transparent 70%); top: 28%; right: -120px; opacity: 0.05; animation: orbDrift 28s ease-in-out infinite reverse 6s; }
+    .bg-orb-3 { width: 460px; height: 460px; background: radial-gradient(circle, rgba(249,115,22,1), transparent 70%); bottom: -140px; left: 28%; opacity: 0.04; animation: orbDrift 20s ease-in-out infinite 11s; }
+    .bg-orb-4 { width: 280px; height: 280px; background: radial-gradient(circle, rgba(22,163,74,1), transparent 70%); bottom: 30%; right: 8%; opacity: 0.04; animation: orbDrift 15s ease-in-out infinite 4s; }
+    @keyframes orbDrift {
+      0%, 100% { transform: translate(0, 0)      scale(1); }
+      33%       { transform: translate(55px, -38px) scale(1.1); }
+      66%       { transform: translate(-35px, 52px) scale(0.93); }
+    }
+
+    /* Everything above background */
+    .container, nav, .navbar { position: relative; z-index: 2; }
+    .bg-orbs { z-index: 0; }
+
+    /* ── Navbar entrance ── */
+    .navbar-brand { animation: brandPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both; }
+    @keyframes brandPop {
+      from { opacity: 0; transform: perspective(400px) translateZ(-30px) scale(0.85); }
+      to   { opacity: 1; transform: none; }
+    }
+    .navbar-nav .nav-item { animation: navItemDrop 0.45s cubic-bezier(0.16, 1, 0.3, 1) both; }
+    .navbar-nav .nav-item:nth-child(1) { animation-delay: 0.18s; }
+    .navbar-nav .nav-item:nth-child(2) { animation-delay: 0.24s; }
+    .navbar-nav .nav-item:nth-child(3) { animation-delay: 0.30s; }
+    .navbar-nav .nav-item:nth-child(4) { animation-delay: 0.36s; }
+    .navbar-nav .nav-item:nth-child(5) { animation-delay: 0.42s; }
+    @keyframes navItemDrop {
+      from { opacity: 0; transform: translateY(-10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Welcome banner ── */
+    .welcome-banner {
+      animation: welcomeDive 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+      position: relative;
+      overflow: hidden;
+    }
+    .welcome-banner::after {
+      content: '';
+      position: absolute;
+      top: -60%; right: -10%;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(15,118,110,0.07) 0%, transparent 65%);
+      border-radius: 50%;
+      animation: welcomeGlow 6s ease-in-out infinite;
+      pointer-events: none;
+    }
+    @keyframes welcomeDive {
+      from { opacity: 0; transform: perspective(900px) translateZ(-50px) translateY(24px) rotateX(-12deg); }
+      to   { opacity: 1; transform: none; }
+    }
+    @keyframes welcomeGlow {
+      0%, 100% { transform: translate(0, 0)       scale(1);   opacity: 0.6; }
+      50%       { transform: translate(-20px, 15px) scale(1.2); opacity: 1; }
+    }
+
+    /* ── Feature cards — 3D entrance stagger ── */
+    .row.g-3 > div:nth-child(1) .hover-card { animation: cardDive3D 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.28s both; }
+    .row.g-3 > div:nth-child(2) .hover-card { animation: cardDive3D 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.36s both; }
+    .row.g-3 > div:nth-child(3) .hover-card { animation: cardDive3D 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.44s both; }
+    .row.g-3 > div:nth-child(4) .hover-card { animation: cardDive3D 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.52s both; }
+    @keyframes cardDive3D {
+      from { opacity: 0; transform: perspective(700px) translateZ(-55px) translateY(28px) rotateX(-16deg) scale(0.92); }
+      to   { opacity: 1; transform: none; }
+    }
+
+    /* ── hover-card 3D tilt ── */
+    .hover-card {
+      will-change: transform;
+      transform-style: preserve-3d;
+      backface-visibility: hidden;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease !important;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Shimmer on hover */
+    .hover-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 55%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent);
+      transform: skewX(-20deg);
+      transition: left 0.5s ease;
+      pointer-events: none;
+    }
+    .hover-card:hover::after { left: 160%; }
+
+    .hover-card .fs-1 {
+      display: inline-block;
+      transition: transform 0.42s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .hover-card:hover .fs-1 {
+      transform: perspective(300px) translateZ(22px) scale(1.2) rotateY(-10deg);
+    }
+    .hover-card h5 {
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+    .hover-card:hover h5 { transform: perspective(300px) translateZ(8px); }
+
+    /* Glow border overlay */
+    .hover-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(135deg, transparent 0%, rgba(15,118,110,0.12) 40%, rgba(37,99,235,0.08) 70%, transparent 100%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .hover-card:hover::before { opacity: 1; }
+    .hover-card .card-body { position: relative; z-index: 1; }
+
+    /* ── Scroll reveal ── */
+    .s-reveal {
+      opacity: 0;
+      transform: perspective(700px) translateY(30px) rotateX(-9deg);
+      transition: opacity 0.65s ease, transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .s-reveal.in-view { opacity: 1; transform: none; }
+    .s-reveal-d1 { transition-delay: 0.08s; }
+    .s-reveal-d2 { transition-delay: 0.16s; }
+
+    /* ── Algorithm tools entrance ── */
+    #algorithm-tools > .col-lg-5,
+    #algorithm-tools > .col-lg-7 {
+      opacity: 0;
+      transform: perspective(700px) translateY(28px) rotateX(-8deg);
+      transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #algorithm-tools > .col-lg-7 { transition-delay: 0.12s; }
+    #algorithm-tools.in-view > .col-lg-5,
+    #algorithm-tools.in-view > .col-lg-7 { opacity: 1; transform: none; }
+
+    /* ── Board content reveal ── */
+    .score-reveal { animation: scoreIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; }
+    @keyframes scoreIn {
+      from { opacity: 0; transform: perspective(700px) translateY(18px) rotateX(-8deg); }
+      to   { opacity: 1; transform: none; }
+    }
+
+    /* ── Score number pop ── */
+    .score-num-pop { animation: numPop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+    @keyframes numPop {
+      from { transform: perspective(400px) translateZ(-40px) scale(0.45); opacity: 0; }
+      to   { transform: none; opacity: 1; }
+    }
+
+    /* ── Animated gauge ring (SVG overlay) ── */
+    .gauge-wrap {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .gauge-svg {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+    .gauge-track { fill: none; stroke: rgba(255,255,255,0.07); stroke-width: 4; }
+    .gauge-fill  {
+      fill: none;
+      stroke-width: 4;
+      stroke-linecap: round;
+      transition: stroke-dashoffset 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    /* ── Progress bar fill animation ── */
+    .progress-bar { transition: width 1.1s cubic-bezier(0.25, 1, 0.5, 1) !important; }
+
+    /* ── Badge pop ── */
+    .badge { animation: badgePop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+    @keyframes badgePop {
+      from { transform: scale(0.55); opacity: 0; }
+      to   { transform: scale(1);    opacity: 1; }
+    }
+
+    /* ── Rank rows slide-in ── */
+    .rank-row { animation: rankSlide 0.3s ease both; }
+    @keyframes rankSlide {
+      from { opacity: 0; transform: translateX(-14px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    /* ── Slider thumb glow ── */
+    .form-range::-webkit-slider-thumb {
+      box-shadow: 0 0 0 3px rgba(15,118,110,0.2), 0 0 10px rgba(15,118,110,0.3);
+      transition: box-shadow 0.2s ease;
+    }
+    .form-range:active::-webkit-slider-thumb {
+      box-shadow: 0 0 0 6px rgba(15,118,110,0.28), 0 0 20px rgba(15,118,110,0.5);
+    }
+
+    /* ── Normalize / rank content reveal ── */
+    #normalize-content .alert,
+    #rank-content .table-responsive { animation: scoreIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+    /* ── Table row hover depth ── */
+    tbody tr { transition: transform 0.18s ease; }
+    tbody tr:hover { transform: perspective(900px) translateX(5px) translateZ(3px); }
+
+    /* ── Calculate button ── */
+    #btn-submit { transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease; }
+    #btn-submit:hover:not(:disabled) {
+      transform: perspective(400px) translateZ(8px) scale(1.04);
+      box-shadow: 0 12px 30px rgba(15,118,110,0.25);
+    }
+    #btn-submit:active { transform: scale(0.97); }
+
+    /* ── Feasibility card entrance ── */
+    .calc-card {
+      opacity: 0;
+      transform: perspective(700px) translateY(28px) rotateX(-9deg);
+      transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .calc-card.in-view { opacity: 1; transform: none; }
+
+    /* ── Shimmer on result cards ── */
+    #board-content .card.border-success,
+    #board-content .card.border-info {
+      position: relative;
+      overflow: hidden;
+    }
+    #board-content .card.border-success::after,
+    #board-content .card.border-info::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.04) 50%, transparent 100%);
+      background-size: 200% 100%;
+      animation: shimmer 3s linear infinite;
+      pointer-events: none;
+    }
+    @keyframes shimmer {
+      from { background-position: -200% 0; }
+      to   { background-position:  200% 0; }
+    }
+
+    /* ── Particle burst container ── */
+    .burst-particle {
+      position: fixed;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9990;
+      animation: burst 0.7s ease-out forwards;
+    }
+    @keyframes burst {
+      to { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
+    }
+
+    /* ── Scroll progress bar ── */
+    .scroll-progress {
+      position: fixed;
+      top: 0; left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      z-index: 9997;
+      width: 0%;
+      transition: width 0.1s linear;
+      box-shadow: 0 0 8px rgba(15,118,110,0.6);
+    }
+  </style>
 </head>
+
 <body class="bg-dark text-light min-vh-100">
+
+  <!-- Scroll progress -->
+  <div class="scroll-progress" id="scroll-progress"></div>
+
+  <!-- Three.js background -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Animated background orbs -->
+  <div class="bg-orbs" aria-hidden="true">
+    <div class="bg-orb bg-orb-1"></div>
+    <div class="bg-orb bg-orb-2"></div>
+    <div class="bg-orb bg-orb-3"></div>
+    <div class="bg-orb bg-orb-4"></div>
+  </div>
 
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary px-3 py-2">
     <a class="navbar-brand fw-bold fs-5" href="../index.html"><i class="fas fa-bolt me-1"></i>Exito</a>
@@ -29,7 +341,7 @@
   <div class="container py-4">
 
     <!-- Welcome -->
-    <div class="bg-custom-glassmorphism border rounded-3 p-4 mb-4">
+    <div class="bg-custom-glassmorphism border rounded-3 p-4 mb-4 welcome-banner">
       <h2 class="fw-bold mb-1"><i class="fas fa-bolt text-warning me-2"></i>Welcome to Exito</h2>
       <p class="text-muted mb-0">Your AI-powered startup toolkit. Pick a tool below to get started.</p>
     </div>
@@ -84,10 +396,10 @@
     </div>
 
     <!-- Feasibility Score Calculator -->
-    <div class="card bg-dark border-secondary">
+    <div class="card bg-dark border-secondary s-reveal calc-card" id="calc-card">
       <div class="card-header border-secondary">
         <h5 class="mb-0 fw-bold"><i class="fas fa-calculator text-primary me-2"></i>Feasibility Score Calculator</h5>
-        <small class="text-muted">Formula: (Demand × 0.4) + (Skill Match × 0.4) − (Competition × 0.2)</small>
+        <small class="text-muted">Formula: (Demand × 0.4) + (Skill Match × 0.4) &minus; (Competition × 0.2)</small>
       </div>
       <div class="card-body p-4">
         <div class="row g-4">
@@ -118,10 +430,364 @@
       </div>
     </div>
 
+    <!-- Algorithm Tools -->
+    <div id="algorithm-tools" class="row g-4 mt-4">
+      <div class="col-lg-5">
+        <div class="card bg-dark border-secondary h-100">
+          <div class="card-header border-secondary">
+            <h5 class="mb-0 fw-bold"><i class="fas fa-sliders-h text-info me-2"></i>Score Normalizer</h5>
+          </div>
+          <div class="card-body p-4">
+            <label class="form-label fw-semibold">Raw Score</label>
+            <div class="input-group">
+              <input id="input-normalize" type="number" step="0.1" value="12"
+                class="form-control bg-dark text-light border-secondary">
+              <button id="btn-normalize" class="btn btn-info text-white fw-semibold" type="button">
+                <i class="fas fa-compress-arrows-alt me-2"></i>Normalize
+              </button>
+            </div>
+            <div id="normalize-content" class="mt-3"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-7">
+        <div class="card bg-dark border-secondary h-100">
+          <div class="card-header border-secondary d-flex justify-content-between align-items-center gap-2">
+            <h5 class="mb-0 fw-bold"><i class="fas fa-ranking-star text-warning me-2"></i>Idea Ranking</h5>
+            <button id="btn-add-idea" class="btn btn-sm btn-outline-primary" type="button">
+              <i class="fas fa-plus me-1"></i>Add
+            </button>
+          </div>
+          <div class="card-body p-4">
+            <div id="rank-list" class="vstack gap-2">
+              <div class="rank-row row g-2 align-items-center">
+                <div class="col-sm-8"><input type="text" class="form-control bg-dark text-light border-secondary rank-name" value="Local coffee subscription" aria-label="Idea name"></div>
+                <div class="col-sm-4"><input type="number" step="0.1" class="form-control bg-dark text-light border-secondary rank-score" value="8.4" aria-label="Idea score"></div>
+              </div>
+              <div class="rank-row row g-2 align-items-center">
+                <div class="col-sm-8"><input type="text" class="form-control bg-dark text-light border-secondary rank-name" value="Remote worker meal prep" aria-label="Idea name"></div>
+                <div class="col-sm-4"><input type="number" step="0.1" class="form-control bg-dark text-light border-secondary rank-score" value="7.1" aria-label="Idea score"></div>
+              </div>
+              <div class="rank-row row g-2 align-items-center">
+                <div class="col-sm-8"><input type="text" class="form-control bg-dark text-light border-secondary rank-name" value="Student study planner" aria-label="Idea name"></div>
+                <div class="col-sm-4"><input type="number" step="0.1" class="form-control bg-dark text-light border-secondary rank-score" value="11" aria-label="Idea score"></div>
+              </div>
+            </div>
+            <div class="d-flex justify-content-end mt-3">
+              <button id="btn-rank" class="btn btn-warning fw-semibold" type="button">
+                <i class="fas fa-arrow-down-wide-short me-2"></i>Rank Ideas
+              </button>
+            </div>
+            <div id="rank-content" class="mt-3"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="../js/api.js"></script>
   <script src="../js/dashboard.js"></script>
+
+  <script>
+    /* ═══════════════════════════════════════════════
+       1. THREE.JS — LOW-POLY FLOATING MESH BACKGROUND
+    ═══════════════════════════════════════════════ */
+    (function initBgCanvas() {
+      const canvas = document.getElementById('bg-canvas');
+      if (!canvas || typeof THREE === 'undefined') return;
+
+      const W = window.innerWidth;
+      const H = window.innerHeight;
+
+      const scene    = new THREE.Scene();
+      const camera   = new THREE.PerspectiveCamera(60, W / H, 0.1, 1000);
+      camera.position.z = 18;
+
+      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false });
+      renderer.setSize(W, H);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+
+      /* ─ Sparse background particles ─ */
+      const N = 80;
+      const pos = new Float32Array(N * 3);
+      for (let i = 0; i < N; i++) {
+        pos[i*3]   = (Math.random() - 0.5) * 40;
+        pos[i*3+1] = (Math.random() - 0.5) * 30;
+        pos[i*3+2] = (Math.random() - 0.5) * 20 - 5;
+      }
+      const geo = new THREE.BufferGeometry();
+      geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+      scene.add(new THREE.Points(geo,
+        new THREE.PointsMaterial({ color: 0x0f766e, size: 0.05, transparent: true, opacity: 0.55 })
+      ));
+
+      /* ─ Wireframe icosahedra floating in the background ─ */
+      const meshes = [];
+      const configs = [
+        { r: 3.5, x: -14, y: 6,   z: -8,  rx: 0.003,  ry: 0.005,  op: 0.045 },
+        { r: 2.0, x:  12, y: -5,  z: -6,  rx: -0.004, ry: 0.007,  op: 0.04 },
+        { r: 1.2, x:   4, y: 10,  z: -10, rx: 0.006,  ry: -0.003, op: 0.035 },
+        { r: 4.2, x:   8, y: -11, z: -14, rx: 0.002,  ry: 0.004,  op: 0.03 },
+      ];
+      configs.forEach(c => {
+        const m = new THREE.Mesh(
+          new THREE.IcosahedronGeometry(c.r, 1),
+          new THREE.MeshBasicMaterial({ color: 0x0f766e, wireframe: true, transparent: true, opacity: c.op })
+        );
+        m.position.set(c.x, c.y, c.z);
+        m.userData = { rx: c.rx, ry: c.ry };
+        scene.add(m);
+        meshes.push(m);
+      });
+
+      /* ─ Floating torus ─ */
+      const bgTorus = new THREE.Mesh(
+        new THREE.TorusGeometry(7, 0.02, 6, 100),
+        new THREE.MeshBasicMaterial({ color: 0x2563eb, transparent: true, opacity: 0.025 })
+      );
+      bgTorus.rotation.x = Math.PI / 4;
+      scene.add(bgTorus);
+
+      /* ─ Mouse subtle parallax ─ */
+      let mx = 0, my = 0, sx = 0, sy = 0;
+      document.addEventListener('mousemove', e => {
+        mx = (e.clientX / window.innerWidth  - 0.5) * 0.2;
+        my = (e.clientY / window.innerHeight - 0.5) * -0.15;
+      });
+
+      function tick() {
+        requestAnimationFrame(tick);
+        meshes.forEach(m => {
+          m.rotation.x += m.userData.rx;
+          m.rotation.y += m.userData.ry;
+        });
+        bgTorus.rotation.z += 0.0018;
+
+        sx += (mx - sx) * 0.03;
+        sy += (my - sy) * 0.03;
+        scene.rotation.y = sx;
+        scene.rotation.x = sy;
+
+        renderer.render(scene, camera);
+      }
+      tick();
+
+      window.addEventListener('resize', () => {
+        const nw = window.innerWidth;
+        const nh = window.innerHeight;
+        camera.aspect = nw / nh;
+        camera.updateProjectionMatrix();
+        renderer.setSize(nw, nh);
+      });
+    })();
+
+
+    /* ═══════════════════════════════════════════════
+       2. 3D TILT EFFECT ON HOVER CARDS
+    ═══════════════════════════════════════════════ */
+    (function initTilt() {
+      const MAX = 10;
+      document.querySelectorAll('.hover-card').forEach(card => {
+        card.addEventListener('mousemove', e => {
+          const r = card.getBoundingClientRect();
+          const x = (e.clientX - r.left) / r.width  - 0.5;
+          const y = (e.clientY - r.top)  / r.height - 0.5;
+          card.style.transform   = `perspective(750px) rotateX(${-y * MAX}deg) rotateY(${x * MAX}deg) translateZ(10px)`;
+          card.style.boxShadow   = `${-x * 22}px ${-y * 22}px 44px rgba(15,118,110,0.15)`;
+          card.style.borderColor = 'rgba(15,118,110,0.45)';
+        });
+        card.addEventListener('mouseleave', () => {
+          card.style.transform   = '';
+          card.style.boxShadow   = '';
+          card.style.borderColor = '';
+        });
+      });
+    })();
+
+
+    /* ═══════════════════════════════════════════════
+       3. SCROLL REVEAL
+    ═══════════════════════════════════════════════ */
+    (function initReveal() {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) { e.target.classList.add('in-view'); obs.unobserve(e.target); }
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.s-reveal, .calc-card, #algorithm-tools').forEach(el => obs.observe(el));
+    })();
+
+
+    /* ═══════════════════════════════════════════════
+       4. BOARD CONTENT — 3D REVEAL + ANIMATED GAUGE
+    ═══════════════════════════════════════════════ */
+    (function initBoardReveal() {
+      const board = document.getElementById('board-content');
+      if (!board) return;
+
+      /* Inject animated SVG gauge around the score number */
+      function injectGauge(pct, colorClass) {
+        const colorMap = { success: '#16a34a', info: '#38bdf8', warning: '#f59e0b', danger: '#dc2626', secondary: '#94a3b8' };
+        const stroke = colorMap[colorClass] || '#0f766e';
+        const R = 52; /* radius */
+        const C = 2 * Math.PI * R;
+        const numEl = board.querySelector('.display-3');
+        if (!numEl || numEl.closest('.gauge-wrap')) return;
+
+        /* Wrap the number in gauge-wrap */
+        const wrap = document.createElement('div');
+        wrap.className = 'gauge-wrap';
+        numEl.parentNode.insertBefore(wrap, numEl);
+        wrap.appendChild(numEl);
+
+        const svgNS = 'http://www.w3.org/2000/svg';
+        const svg = document.createElementNS(svgNS, 'svg');
+        svg.setAttribute('width', '120');
+        svg.setAttribute('height', '120');
+        svg.setAttribute('viewBox', '0 0 120 120');
+        svg.classList.add('gauge-svg');
+
+        const track = document.createElementNS(svgNS, 'circle');
+        track.setAttribute('cx', '60'); track.setAttribute('cy', '60'); track.setAttribute('r', String(R));
+        track.classList.add('gauge-track');
+
+        const fill = document.createElementNS(svgNS, 'circle');
+        fill.setAttribute('cx', '60'); fill.setAttribute('cy', '60'); fill.setAttribute('r', String(R));
+        fill.classList.add('gauge-fill');
+        fill.setAttribute('stroke', stroke);
+        fill.style.strokeDasharray = String(C);
+        fill.style.strokeDashoffset = String(C);
+        fill.style.transformOrigin = 'center';
+        fill.style.transform = 'rotate(-90deg)';
+
+        svg.appendChild(track);
+        svg.appendChild(fill);
+        wrap.appendChild(svg);
+
+        /* Trigger fill animation after reflow */
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            fill.style.strokeDashoffset = String(C * (1 - pct / 100));
+          });
+        });
+      }
+
+      const obs = new MutationObserver(() => {
+        if (board.querySelector('.spinner-border')) return;
+
+        board.classList.remove('score-reveal');
+        void board.offsetWidth;
+        board.classList.add('score-reveal');
+
+        const numEl = board.querySelector('.display-3, .display-5');
+        if (numEl) {
+          numEl.classList.remove('score-num-pop');
+          void numEl.offsetWidth;
+          numEl.classList.add('score-num-pop');
+        }
+
+        /* Animated progress bars */
+        board.querySelectorAll('.progress-bar').forEach(bar => {
+          const target = bar.style.width;
+          bar.style.transition = 'none';
+          bar.style.width = '0';
+          bar.offsetWidth;
+          bar.style.transition = '';
+          bar.style.width = target;
+        });
+
+        /* Inject gauge if score card */
+        const scoreNum = board.querySelector('.display-3');
+        if (scoreNum) {
+          const scoreVal = parseFloat(scoreNum.textContent);
+          let colorClass = 'secondary';
+          const grade = board.querySelector('.badge[class*="bg-"]');
+          if (grade) {
+            const cls = [...grade.classList].find(c => c.startsWith('bg-') && c !== 'bg-dark');
+            if (cls) colorClass = cls.replace('bg-', '');
+          }
+          setTimeout(() => injectGauge(scoreVal * 10, colorClass), 50);
+        }
+
+        /* Particle burst on Calculate button location */
+        const btnRect = document.getElementById('btn-submit')?.getBoundingClientRect();
+        if (btnRect) spawnBurst(btnRect.left + btnRect.width / 2, btnRect.top + btnRect.height / 2);
+      });
+
+      obs.observe(board, { childList: true });
+    })();
+
+
+    /* ═══════════════════════════════════════════════
+       5. PARTICLE BURST
+    ═══════════════════════════════════════════════ */
+    function spawnBurst(cx, cy) {
+      const colors = ['#0f766e', '#2563eb', '#f97316', '#16a34a', '#f59e0b'];
+      for (let i = 0; i < 14; i++) {
+        const p = document.createElement('div');
+        p.className = 'burst-particle';
+        const angle = (i / 14) * Math.PI * 2;
+        const dist  = 55 + Math.random() * 45;
+        p.style.left = cx + 'px';
+        p.style.top  = cy + 'px';
+        p.style.background = colors[i % colors.length];
+        p.style.setProperty('--tx', Math.cos(angle) * dist + 'px');
+        p.style.setProperty('--ty', Math.sin(angle) * dist + 'px');
+        p.style.animationDelay = (Math.random() * 0.1) + 's';
+        document.body.appendChild(p);
+        p.addEventListener('animationend', () => p.remove());
+      }
+    }
+
+
+    /* ═══════════════════════════════════════════════
+       6. SLIDER — badge pulse
+    ═══════════════════════════════════════════════ */
+    (function initSliderPulse() {
+      ['lbl-demand', 'lbl-competition', 'lbl-skill'].forEach(id => {
+        const badge = document.getElementById(id);
+        if (!badge) return;
+        const sl = document.getElementById(id.replace('lbl-', 'sl-'));
+        if (!sl) return;
+        sl.addEventListener('input', () => {
+          badge.style.animation = 'none';
+          badge.offsetWidth;
+          badge.style.animation = '';
+        });
+      });
+    })();
+
+
+    /* ═══════════════════════════════════════════════
+       7. SCROLL PROGRESS BAR
+    ═══════════════════════════════════════════════ */
+    (function initScrollProgress() {
+      const bar = document.getElementById('scroll-progress');
+      if (!bar) return;
+      window.addEventListener('scroll', () => {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        bar.style.width = (max > 0 ? window.scrollY / max * 100 : 0) + '%';
+      });
+    })();
+
+
+    /* ═══════════════════════════════════════════════
+       8. CALCULATE BUTTON — sparkle click effect
+    ═══════════════════════════════════════════════ */
+    (function initBtnSparkle() {
+      const btn = document.getElementById('btn-submit');
+      if (!btn) return;
+      btn.addEventListener('click', function(e) {
+        const r = btn.getBoundingClientRect();
+        spawnBurst(r.left + r.width / 2, r.top + r.height / 2);
+      });
+    })();
+
+  </script>
+
 </body>
 </html>
