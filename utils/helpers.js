@@ -1,84 +1,83 @@
-const https = require("https");
+const { GoogleGenerativeAI } = require("@google/generative-ai");
 
-// ════════════════════════════════════════════════════════
-//  callAI(prompt)  —  sends prompt to Anthropic, returns text
-// ════════════════════════════════════════════════════════
+// ═══════════════════════════════════════
+// AI CALL (SAFE + CLEAN)
+// ═══════════════════════════════════════
 async function callAI(prompt) {
-  const API_KEY = process.env.ANTHROPIC_API_KEY;
+  const API_KEY = process.env.GOOGLE_API_KEY;
 
   if (!API_KEY) {
-    throw new Error("ANTHROPIC_API_KEY not set in environment variables");
+    throw new Error("GOOGLE_API_KEY not set");
   }
 
-  const body = JSON.stringify({
-    model: "claude-sonnet-4-20250514",
-    max_tokens: 1024,
-    messages: [{ role: "user", content: prompt }],
+  const client = new GoogleGenerativeAI(API_KEY);
+
+  // USE STABLE MODEL (IMPORTANT)
+  const model = client.getGenerativeModel({
+    model: "gemini-2.5-flash",
   });
 
-  return new Promise((resolve, reject) => {
-    const options = {
-      hostname: "api.anthropic.com",
-      path: "/v1/messages",
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-api-key": API_KEY,
-        "anthropic-version": "2023-06-01",
-      },
-    };
+  const result = await model.generateContent(prompt);
 
-    const req = https.request(options, (res) => {
-      let data = "";
-      res.on("data", (chunk) => (data += chunk));
-      res.on("end", () => {
-        try {
-          const parsed = JSON.parse(data);
+  const response = result.response;
+  const text = response?.candidates?.[0]?.content?.parts
+    ?.map(p => p.text || "")
+    .join("")
+    .trim();
 
-          // API-level error (e.g. invalid key, rate limit)
-          if (parsed.error) {
-            return reject(new Error(parsed.error.message));
-          }
+  if (!text) {
+    throw new Error("Empty AI response");
+  }
 
-          const text = parsed.content
-            ?.map((block) => block.text || "")
-            .join("")
-            .trim();
-
-          resolve(text || "No response from AI.");
-        } catch {
-          reject(new Error("Failed to parse AI response"));
-        }
-      });
-    });
-
-    req.on("error", reject);
-    req.write(body);
-    req.end();
-  });
+  return text;
 }
 
-// ════════════════════════════════════════════════════════
-//  formatResponse(data)  —  consistent JSON wrapper
-// ════════════════════════════════════════════════════════
+// ═══════════════════════════════════════
+// SAFE JSON PARSER (VERY IMPORTANT)
+// ═══════════════════════════════════════
+function safeJSONParse(text) {
+  try {
+    if (!text) throw new Error("Empty text");
+
+    // remove markdown blocks
+    const cleaned = text
+      .replace(/```json/g, "")
+      .replace(/```/g, "")
+      .trim();
+
+    const start = cleaned.indexOf("{");
+    const end = cleaned.lastIndexOf("}");
+
+    if (start === -1 || end === -1) {
+      throw new Error("No JSON found");
+    }
+
+    const jsonString = cleaned.slice(start, end + 1);
+
+    return JSON.parse(jsonString);
+  } catch (err) {
+    console.log("RAW AI OUTPUT:\n", text);
+    throw new Error("AI JSON parse failed: " + err.message);
+  }
+}
+
+// ═══════════════════════════════════════
+// FORMAT RESPONSE
+// ═══════════════════════════════════════
 function formatResponse(data) {
   return {
     success: true,
     timestamp: new Date().toISOString(),
-    data: data,
+    data,
   };
 }
 
-// ════════════════════════════════════════════════════════
-//  validateInput(req, requiredFields)
-//  Returns { valid: bool, missing: [...fields] }
-// ════════════════════════════════════════════════════════
+// ═══════════════════════════════════════
+// VALIDATE INPUT
+// ═══════════════════════════════════════
 function validateInput(req, requiredFields = []) {
   const missing = requiredFields.filter(
-    (field) =>
-      req.body[field] === undefined ||
-      req.body[field] === null ||
-      req.body[field] === ""
+    (f) => !req.body?.[f]
   );
 
   return {
@@ -87,4 +86,9 @@ function validateInput(req, requiredFields = []) {
   };
 }
 
-module.exports = { callAI, formatResponse, validateInput };
+module.exports = {
+  callAI,
+  safeJSONParse,
+  formatResponse,
+  validateInput,
+};

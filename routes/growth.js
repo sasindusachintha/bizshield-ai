@@ -3,230 +3,233 @@ const router = express.Router();
 const { callAI, formatResponse, validateInput } = require("../utils/helpers");
 
 // ════════════════════════════════════════════════════════
-//  POST /api/growth/generate-ideas
-//  Input:  { skills, budget, interest }
-//  Output: 5 business ideas
+// SAFE JSON PARSER (FIXED)
+// ════════════════════════════════════════════════════════
+function safeJSONParse(text) {
+  try {
+    const cleaned = text
+      .replace(/```json|```/g, "")
+      .trim();
+
+    const start = cleaned.indexOf("{");
+    const end = cleaned.lastIndexOf("}");
+
+    const startArr = cleaned.indexOf("[");
+    const endArr = cleaned.lastIndexOf("]");
+
+    // Handle ARRAY response
+    if (startArr !== -1 && (startArr < start || start === -1)) {
+      const jsonString = cleaned.slice(startArr, endArr + 1);
+      return JSON.parse(jsonString);
+    }
+
+    // Handle OBJECT response
+    if (start !== -1 && end !== -1) {
+      const jsonString = cleaned.slice(start, end + 1);
+      return JSON.parse(jsonString);
+    }
+
+    throw new Error("No valid JSON found");
+  } catch (err) {
+    throw new Error("AI returned invalid JSON: " + err.message);
+  }
+}
+
+//
+// ════════════════════════════════════════════════════════
+//  1. GENERATE IDEAS
 // ════════════════════════════════════════════════════════
 router.post("/generate-ideas", async (req, res) => {
   const { valid, missing } = validateInput(req, ["skills", "interest"]);
   if (!valid) {
-    return res.status(400).json({ success: false, error: `Missing fields: ${missing.join(", ")}` });
+    return res.status(400).json({ success: false, error: missing.join(", ") });
   }
 
   const { skills, budget, interest } = req.body;
 
-  const prompt = `You are a startup advisor. Generate exactly 5 business ideas for this person.
-Skills: ${skills}
-Budget: $${budget || "not specified"}
-Interest/Niche: ${interest}
+  const prompt = `
+Generate 5 business ideas as VALID JSON ARRAY ONLY.
 
-For each idea return a JSON array. Format your entire response as valid JSON only, no extra text:
+Skills: ${skills}
+Budget: ${budget || "not specified"}
+Interest: ${interest}
+
+Return format:
 [
   {
     "id": 1,
     "name": "Business Name",
-    "description": "One-line description",
-    "why_it_fits": "Why this suits their skills and budget",
-    "startup_cost": "$XXX - $XXX",
-    "time_to_profit": "X months"
+    "description": "One line",
+    "why_it_fits": "Reason",
+    "startup_cost": "$100-$500",
+    "time_to_profit": "2-3 months"
   }
-]`;
+]
+`;
 
   try {
     const aiResponse = await callAI(prompt);
-    const cleaned = aiResponse.replace(/```json|```/g, "").trim();
-    const ideas = JSON.parse(cleaned);
+    const ideas = safeJSONParse(aiResponse);
     res.json(formatResponse({ ideas }));
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });
   }
 });
 
+//
 // ════════════════════════════════════════════════════════
-//  POST /api/growth/analyze-idea
-//  Input:  { idea }
-//  Output: demand, competition, risk, cost_estimate
+//  2. ANALYZE IDEA
 // ════════════════════════════════════════════════════════
 router.post("/analyze-idea", async (req, res) => {
   const { valid, missing } = validateInput(req, ["idea"]);
   if (!valid) {
-    return res.status(400).json({ success: false, error: `Missing fields: ${missing.join(", ")}` });
+    return res.status(400).json({ success: false, error: missing.join(", ") });
   }
 
   const { idea } = req.body;
 
-  const prompt = `Analyze this business idea: "${idea}"
+  const prompt = `
+Analyze this business idea: "${idea}"
 
-Return ONLY valid JSON, no extra text:
+Return ONLY valid JSON:
+
 {
-  "demand": {
-    "score": 7,
-    "summary": "Short explanation of market demand"
-  },
-  "competition": {
-    "level": "Medium",
-    "score": 5,
-    "summary": "Short explanation of competitors"
-  },
-  "risk": {
-    "level": "Low | Medium | High",
-    "top_risks": ["risk 1", "risk 2", "risk 3"]
-  },
+  "demand": { "score": 7, "summary": "..." },
+  "competition": { "level": "Medium", "score": 5, "summary": "..." },
+  "risk": { "level": "Medium", "top_risks": ["..."] },
   "cost_estimate": {
-    "minimum": "$XXX",
-    "recommended": "$XXX",
-    "breakdown": ["Item: $XXX", "Item: $XXX"]
+    "minimum": "$100",
+    "recommended": "$500",
+    "breakdown": ["Item: $50"]
   }
-}`;
+}
+`;
 
   try {
     const aiResponse = await callAI(prompt);
-    const cleaned = aiResponse.replace(/```json|```/g, "").trim();
-    const analysis = JSON.parse(cleaned);
+    const analysis = safeJSONParse(aiResponse);
     res.json(formatResponse(analysis));
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });
   }
 });
 
+//
 // ════════════════════════════════════════════════════════
-//  POST /api/growth/generate-plan
-//  Input:  { idea }
-//  Output: 7-day plan, 30-day plan, setup steps
+//  3. GENERATE PLAN
 // ════════════════════════════════════════════════════════
 router.post("/generate-plan", async (req, res) => {
   const { valid, missing } = validateInput(req, ["idea"]);
   if (!valid) {
-    return res.status(400).json({ success: false, error: `Missing fields: ${missing.join(", ")}` });
+    return res.status(400).json({ success: false, error: missing.join(", ") });
   }
 
   const { idea } = req.body;
 
-  const prompt = `Create a full business roadmap for: "${idea}"
+  const prompt = `
+Create business roadmap as VALID JSON ONLY:
 
-Return ONLY valid JSON, no extra text:
 {
   "setup_steps": [
-    { "step": 1, "title": "Step title", "description": "What to do", "cost": "$0" }
+    { "step": 1, "title": "...", "description": "...", "cost": "$0" }
   ],
   "plan_7_day": [
-    { "day": "Day 1-2", "focus": "Focus area", "tasks": ["task 1", "task 2"] }
+    { "day": "Day 1-2", "focus": "...", "tasks": ["..."] }
   ],
   "plan_30_day": [
-    { "week": "Week 1", "goal": "Main goal", "milestones": ["milestone 1", "milestone 2"] }
+    { "week": "Week 1", "goal": "...", "milestones": ["..."] }
   ],
-  "success_tips": ["tip 1", "tip 2", "tip 3"]
-}`;
+  "success_tips": ["...", "..."]
+}
+`;
 
   try {
     const aiResponse = await callAI(prompt);
-    const cleaned = aiResponse.replace(/```json|```/g, "").trim();
-    const plan = JSON.parse(cleaned);
+    const plan = safeJSONParse(aiResponse);
     res.json(formatResponse(plan));
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });
   }
 });
 
+//
 // ════════════════════════════════════════════════════════
-//  POST /api/growth/marketing-content
-//  Input:  { idea }
-//  Output: Instagram posts, ads text, slogans, captions
+//  4. MARKETING CONTENT
 // ════════════════════════════════════════════════════════
 router.post("/marketing-content", async (req, res) => {
   const { valid, missing } = validateInput(req, ["idea"]);
   if (!valid) {
-    return res.status(400).json({ success: false, error: `Missing fields: ${missing.join(", ")}` });
+    return res.status(400).json({ success: false, error: missing.join(", ") });
   }
 
   const { idea } = req.body;
 
-  const prompt = `Create marketing content for this business: "${idea}"
+  const prompt = `
+Create marketing content as VALID JSON ONLY:
 
-Return ONLY valid JSON, no extra text:
 {
   "instagram_posts": [
-    { "caption": "Post text here", "hashtags": ["#tag1", "#tag2"] },
-    { "caption": "Post text here", "hashtags": ["#tag1", "#tag2"] }
+    { "caption": "...", "hashtags": ["#a", "#b"] }
   ],
   "ad_copies": [
-    { "headline": "Ad headline", "body": "Ad body text", "cta": "Call to action" },
-    { "headline": "Ad headline", "body": "Ad body text", "cta": "Call to action" }
+    { "headline": "...", "body": "...", "cta": "..." }
   ],
-  "slogans": ["Slogan 1", "Slogan 2", "Slogan 3"],
+  "slogans": ["..."],
   "captions": {
-    "facebook": "Facebook caption here",
-    "linkedin": "LinkedIn caption here",
-    "whatsapp": "WhatsApp broadcast message here"
+    "facebook": "...",
+    "linkedin": "...",
+    "whatsapp": "..."
   }
-}`;
+}
+`;
 
   try {
     const aiResponse = await callAI(prompt);
-    const cleaned = aiResponse.replace(/```json|```/g, "").trim();
-    const content = JSON.parse(cleaned);
+    const content = safeJSONParse(aiResponse);
     res.json(formatResponse(content));
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });
   }
 });
 
+//
 // ════════════════════════════════════════════════════════
-//  POST /api/growth/feasibility-score
-//  Input:  { demand, competition, skill_match }
-//  Output: score, grade, verdict
-//  Formula: (demand * 0.4) + (skill_match * 0.4) - (competition * 0.2)
+//  5. FEASIBILITY SCORE (NO AI)
 // ════════════════════════════════════════════════════════
 router.post("/feasibility-score", (req, res) => {
   const { valid, missing } = validateInput(req, ["demand", "competition", "skill_match"]);
   if (!valid) {
-    return res.status(400).json({ success: false, error: `Missing fields: ${missing.join(", ")}` });
+    return res.status(400).json({ success: false, error: missing.join(", ") });
   }
 
   const demand = parseFloat(req.body.demand);
   const competition = parseFloat(req.body.competition);
   const skill_match = parseFloat(req.body.skill_match);
 
-  // Validate ranges (all should be 1–10)
-  if ([demand, competition, skill_match].some((v) => isNaN(v) || v < 1 || v > 10)) {
-    return res.status(400).json({ success: false, error: "All scores must be numbers between 1 and 10" });
+  if ([demand, competition, skill_match].some(v => isNaN(v) || v < 1 || v > 10)) {
+    return res.status(400).json({ success: false, error: "Scores must be 1–10" });
   }
 
-  // Core formula
-  const raw_score = demand * 0.4 + skill_match * 0.4 - competition * 0.2;
+  const raw = demand * 0.4 + skill_match * 0.4 - competition * 0.2;
+  const score = Math.min(10, Math.max(0, Number(raw.toFixed(2))));
 
-  // Normalize to 0–10 range (raw can go from -0.2 to 8)
-  const score = Math.min(10, Math.max(0, parseFloat(raw_score.toFixed(2))));
-
-  // Grade
   let grade, verdict;
+
   if (score >= 7.5) {
     grade = "A";
-    verdict = "Excellent — strong potential, go for it!";
+    verdict = "Excellent";
   } else if (score >= 6) {
     grade = "B";
-    verdict = "Good — some areas to improve but viable";
+    verdict = "Good";
   } else if (score >= 4.5) {
     grade = "C";
-    verdict = "Average — needs more planning before launch";
+    verdict = "Average";
   } else {
     grade = "D";
-    verdict = "Risky — reconsider or pivot the idea";
+    verdict = "Risky";
   }
 
-  res.json(
-    formatResponse({
-      inputs: { demand, competition, skill_match },
-      score,
-      grade,
-      verdict,
-      breakdown: {
-        demand_contribution: parseFloat((demand * 0.4).toFixed(2)),
-        skill_contribution: parseFloat((skill_match * 0.4).toFixed(2)),
-        competition_penalty: parseFloat((competition * 0.2).toFixed(2)),
-      },
-    })
-  );
+  res.json(formatResponse({ score, grade, verdict }));
 });
 
 module.exports = router;

@@ -5,7 +5,7 @@
 ```bash
 cd backend
 npm install
-cp .env.example .env        # add your ANTHROPIC_API_KEY in .env
+cp .env.example .env        # add your GOOGLE_API_KEY in .env
 npm run dev                  # starts on http://localhost:3000
 ```
 
