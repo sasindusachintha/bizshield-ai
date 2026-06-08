@@ -2,9 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Exito Official Site</title>
+  <title>BizShield Official Site</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Exito is a full-stack platform that helps you discover market opportunities, build an MVP, and scale with data-driven insights.">
+  <script>/* apply stored theme early to avoid FOUC */(function(){try{var t=localStorage.getItem('BizShield-theme');if(t==='dark'||t==='light'){document.documentElement.dataset.theme=t;document.documentElement.style.colorScheme=t;}}catch(e){} })();</script>
+  <style>/* critical background to prevent white flash before CSS loads */
+    html[data-theme="dark"]{background:#101923;color-scheme:dark}
+    html[data-theme="light"]{background:#edf4ef;color-scheme:light}
+  </style>
+  <meta name="description" content="BizShield is a full-stack platform that helps you discover market opportunities, build an MVP, and scale with data-driven insights.">
 
   <link href="https://fonts.googleapis.com/css?family=Inter:400,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -390,7 +395,7 @@
 
   <header class="site-header">
     <nav class="navbar">
-      <div class="logo"><a href="./index.html">Exito</a></div>
+      <div class="logo"><a href="./index.html">BizShield</a></div>
       <ul class="nav-links">
         <li><a href="./pages/dashboard.html">Dashboard</a></li>
         <li><a href="./pages/analysis.html">Analysis</a></li>
@@ -419,7 +424,7 @@
 
     <div class="container">
       <h1 id="hero-title">Transform your business vision into reality.</h1>
-      <p>Exito is a full-stack platform that helps you discover market opportunities, build an MVP, and scale with data-driven insights.</p>
+      <p>BizShield is a full-stack platform that helps you discover market opportunities, build an MVP, and scale with data-driven insights.</p>
       <a href="./pages/dashboard.html" class="btn-primary">Get Started</a>
     </div>
   </section>
@@ -499,7 +504,7 @@
   </main>
 
   <footer class="site-footer">
-    <p>&copy; 2026 Exito. All rights reserved.</p>
+    <p>&copy; 2026 BizShield. All rights reserved.</p>
     <nav class="footer-nav">
       <ul>
         <li><a href="./pages/dashboard.html">Dashboard</a></li>

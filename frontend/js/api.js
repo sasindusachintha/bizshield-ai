@@ -3,7 +3,7 @@
 const API_BASE = 'http://localhost:3000';
 
 /**
- * Call the Exito Growth Mode API
+ * Call the BizShield Growth Mode API
  * @param {string} endpoint  e.g. '/generate-ideas'
  * @param {object} data      request body
  * @returns {Promise<object>} response .data field

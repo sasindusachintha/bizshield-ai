@@ -1,6 +1,6 @@
 (function () {
   const root = document.documentElement;
-  const storageKey = 'exito-theme';
+  const storageKey = 'BizShield-theme';
   const media = window.matchMedia('(prefers-color-scheme: dark)');
 
   function readStoredTheme() {
@@ -90,7 +90,7 @@
     }
   });
 
-  window.ExitoTheme = {
+  window.BizShieldTheme = {
     apply: applyTheme,
     current: currentTheme
   };

@@ -1,6 +1,6 @@
-# Exito Frontend
+# BizShield Frontend
 
-Static frontend for Exito, an AI-powered startup toolkit that helps users generate business ideas, analyze them, build launch plans, and create marketing content.
+Static frontend for BizShield, an AI-powered startup toolkit that helps users generate business ideas, analyze them, build launch plans, and create marketing content.
 
 ## Pages
 

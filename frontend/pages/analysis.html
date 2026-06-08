@@ -3,7 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Exito – Business Analysis</title>
+  <script>/* apply stored theme early to avoid FOUC */(function(){try{var t=localStorage.getItem('BizShield-theme');if(t==='dark'||t==='light'){document.documentElement.dataset.theme=t;document.documentElement.style.colorScheme=t;}}catch(e){} })();</script>
+  <style>/* critical background to prevent white flash before CSS loads */
+    html[data-theme="dark"]{background:#101923;color-scheme:dark}
+    html[data-theme="light"]{background:#edf4ef;color-scheme:light}
+  </style>
+  <title>BizShield – Business Analysis</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="../css/style.css">
@@ -222,7 +227,7 @@
   </div>
 
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary px-3 py-2">
-    <a class="navbar-brand fw-bold fs-5" href="../index.html"><i class="fas fa-bolt me-1"></i>Exito</a>
+    <a class="navbar-brand fw-bold fs-5" href="../index.html"><i class="fas fa-bolt me-1"></i>BizShield</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
       <span class="navbar-toggler-icon"></span>
     </button>

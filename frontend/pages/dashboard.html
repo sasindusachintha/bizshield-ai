@@ -3,7 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Exito – Dashboard</title>
+  <script>/* apply stored theme early to avoid FOUC */(function(){try{var t=localStorage.getItem('BizShield-theme');if(t==='dark'||t==='light'){document.documentElement.dataset.theme=t;document.documentElement.style.colorScheme=t;}}catch(e){} })();</script>
+  <style>/* critical background to prevent white flash before CSS loads */
+    html[data-theme="dark"]{background:#101923;color-scheme:dark}
+    html[data-theme="light"]{background:#edf4ef;color-scheme:light}
+  </style>
+  <title>BizShield – Dashboard</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="../css/style.css">
@@ -163,16 +168,6 @@
     .s-reveal-d2 { transition-delay: 0.16s; }
 
     /* ── Algorithm tools entrance ── */
-    #algorithm-tools > .col-lg-5,
-    #algorithm-tools > .col-lg-7 {
-      opacity: 0;
-      transform: perspective(700px) translateY(28px) rotateX(-8deg);
-      transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    #algorithm-tools > .col-lg-7 { transition-delay: 0.12s; }
-    #algorithm-tools.in-view > .col-lg-5,
-    #algorithm-tools.in-view > .col-lg-7 { opacity: 1; transform: none; }
-
     /* ── Board content reveal ── */
     .score-reveal { animation: scoreIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; }
     @keyframes scoreIn {
@@ -219,12 +214,6 @@
     }
 
     /* ── Rank rows slide-in ── */
-    .rank-row { animation: rankSlide 0.3s ease both; }
-    @keyframes rankSlide {
-      from { opacity: 0; transform: translateX(-14px); }
-      to   { opacity: 1; transform: translateX(0); }
-    }
-
     /* ── Slider thumb glow ── */
     .form-range::-webkit-slider-thumb {
       box-shadow: 0 0 0 3px rgba(15,118,110,0.2), 0 0 10px rgba(15,118,110,0.3);
@@ -235,9 +224,6 @@
     }
 
     /* ── Normalize / rank content reveal ── */
-    #normalize-content .alert,
-    #rank-content .table-responsive { animation: scoreIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
-
     /* ── Table row hover depth ── */
     tbody tr { transition: transform 0.18s ease; }
     tbody tr:hover { transform: perspective(900px) translateX(5px) translateZ(3px); }
@@ -323,7 +309,7 @@
   </div>
 
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary px-3 py-2">
-    <a class="navbar-brand fw-bold fs-5" href="../index.html"><i class="fas fa-bolt me-1"></i>Exito</a>
+    <a class="navbar-brand fw-bold fs-5" href="../index.html"><i class="fas fa-bolt me-1"></i>BizShield</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -342,7 +328,7 @@
 
     <!-- Welcome -->
     <div class="bg-custom-glassmorphism border rounded-3 p-4 mb-4 welcome-banner">
-      <h2 class="fw-bold mb-1"><i class="fas fa-bolt text-warning me-2"></i>Welcome to Exito</h2>
+      <h2 class="fw-bold mb-1"><i class="fas fa-bolt text-warning me-2"></i>Welcome to BizShield</h2>
       <p class="text-muted mb-0">Your AI-powered startup toolkit. Pick a tool below to get started.</p>
     </div>
 
@@ -427,61 +413,6 @@
         </div>
 
         <div id="board-content" class="mt-4"></div>
-      </div>
-    </div>
-
-    <!-- Algorithm Tools -->
-    <div id="algorithm-tools" class="row g-4 mt-4">
-      <div class="col-lg-5">
-        <div class="card bg-dark border-secondary h-100">
-          <div class="card-header border-secondary">
-            <h5 class="mb-0 fw-bold"><i class="fas fa-sliders-h text-info me-2"></i>Score Normalizer</h5>
-          </div>
-          <div class="card-body p-4">
-            <label class="form-label fw-semibold">Raw Score</label>
-            <div class="input-group">
-              <input id="input-normalize" type="number" step="0.1" value="12"
-                class="form-control bg-dark text-light border-secondary">
-              <button id="btn-normalize" class="btn btn-info text-white fw-semibold" type="button">
-                <i class="fas fa-compress-arrows-alt me-2"></i>Normalize
-              </button>
-            </div>
-            <div id="normalize-content" class="mt-3"></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-7">
-        <div class="card bg-dark border-secondary h-100">
-          <div class="card-header border-secondary d-flex justify-content-between align-items-center gap-2">
-            <h5 class="mb-0 fw-bold"><i class="fas fa-ranking-star text-warning me-2"></i>Idea Ranking</h5>
-            <button id="btn-add-idea" class="btn btn-sm btn-outline-primary" type="button">
-              <i class="fas fa-plus me-1"></i>Add
-            </button>
-          </div>
-          <div class="card-body p-4">
-            <div id="rank-list" class="vstack gap-2">
-              <div class="rank-row row g-2 align-items-center">
-                <div class="col-sm-8"><input type="text" class="form-control bg-dark text-light border-secondary rank-name" value="Local coffee subscription" aria-label="Idea name"></div>
-                <div class="col-sm-4"><input type="number" step="0.1" class="form-control bg-dark text-light border-secondary rank-score" value="8.4" aria-label="Idea score"></div>
-              </div>
-              <div class="rank-row row g-2 align-items-center">
-                <div class="col-sm-8"><input type="text" class="form-control bg-dark text-light border-secondary rank-name" value="Remote worker meal prep" aria-label="Idea name"></div>
-                <div class="col-sm-4"><input type="number" step="0.1" class="form-control bg-dark text-light border-secondary rank-score" value="7.1" aria-label="Idea score"></div>
-              </div>
-              <div class="rank-row row g-2 align-items-center">
-                <div class="col-sm-8"><input type="text" class="form-control bg-dark text-light border-secondary rank-name" value="Student study planner" aria-label="Idea name"></div>
-                <div class="col-sm-4"><input type="number" step="0.1" class="form-control bg-dark text-light border-secondary rank-score" value="11" aria-label="Idea score"></div>
-              </div>
-            </div>
-            <div class="d-flex justify-content-end mt-3">
-              <button id="btn-rank" class="btn btn-warning fw-semibold" type="button">
-                <i class="fas fa-arrow-down-wide-short me-2"></i>Rank Ideas
-              </button>
-            </div>
-            <div id="rank-content" class="mt-3"></div>
-          </div>
-        </div>
       </div>
     </div>
 
@@ -618,7 +549,7 @@
           if (e.isIntersecting) { e.target.classList.add('in-view'); obs.unobserve(e.target); }
         });
       }, { threshold: 0.1 });
-      document.querySelectorAll('.s-reveal, .calc-card, #algorithm-tools').forEach(el => obs.observe(el));
+      document.querySelectorAll('.s-reveal, .calc-card').forEach(el => obs.observe(el));
     })();
 
 
