@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { callAI, formatResponse, validateInput } = require("../../utils/helpers");
+const { callAI, formatResponse, validateInput } = require("../utils/helpers");
 
 // ════════════════════════════════════════════════════════
 // SAFE JSON PARSER (FIXED)
