@@ -1,35 +1,20 @@
-const { GoogleGenerativeAI } = require("@google/generative-ai");
-
-// ═══════════════════════════════════════
-// AI CALL (SAFE + CLEAN)
-// ═══════════════════════════════════════
+// ═══════════════════════════════════════════════════════
+// AI CALL - DEPRECATED
+// ═══════════════════════════════════════════════════════
+// ⚠️  DO NOT USE THIS FUNCTION
+// 
+// All Gemini calls must route through /AI-Engine/aiEngine.js
+// This function is kept for backward compatibility only.
+// Import from AI-Engine instead:
+//   const { callGemini } = require("../AI-Engine/aiEngine");
+// ═══════════════════════════════════════════════════════
 async function callAI(prompt) {
-  const API_KEY = process.env.GOOGLE_API_KEY;
-
-  if (!API_KEY) {
-    throw new Error("GOOGLE_API_KEY not set");
-  }
-
-  const client = new GoogleGenerativeAI(API_KEY);
-
-  // USE STABLE MODEL (IMPORTANT)
-  const model = client.getGenerativeModel({
-    model: "gemini-2.5-flash",
-  });
-
-  const result = await model.generateContent(prompt);
-
-  const response = result.response;
-  const text = response?.candidates?.[0]?.content?.parts
-    ?.map(p => p.text || "")
-    .join("")
-    .trim();
-
-  if (!text) {
-    throw new Error("Empty AI response");
-  }
-
-  return text;
+  throw new Error(
+    "❌ DEPRECATED: callAI in helpers.js is no longer used.\n" +
+    "All AI calls must route through AI-Engine: require('../AI-Engine/aiEngine')\n" +
+    "Use: const { callGemini } = require('../AI-Engine/aiEngine')\n" +
+    "Then call: callGemini(prompt)"
+  );
 }
 
 // ═══════════════════════════════════════

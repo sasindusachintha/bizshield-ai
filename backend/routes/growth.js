@@ -1,235 +1,281 @@
+/**
+ * GROWTH MODE ROUTES - HYBRID ARCHITECTURE
+ * 
+ * Pipeline: INPUT → AI ENGINE → PARSE → ALGORITHMS → FORMAT → OUTPUT
+ * 
+ * ✅ Uses AI Engine for all Gemini calls
+ * ✅ Uses Algorithms for processing
+ * ✅ No direct API calls in this layer
+ */
+
 const express = require("express");
 const router = express.Router();
-const { callAI, formatResponse, validateInput } = require("../../utils/helpers");
+const { callGemini, parseAIResponse } = require("../ai-engine");
+const { 
+  processIdeas, 
+  processAnalysis, 
+  calculateIdeaFeasibility,
+  normalizeScore 
+} = require("../algorithms/orchestrator");
+const { formatResponse, validateInput } = require("../utils/helpers");
 
 // ════════════════════════════════════════════════════════
-// SAFE JSON PARSER (FIXED)
+// RESPONSE FORMATTER
 // ════════════════════════════════════════════════════════
-function safeJSONParse(text) {
-  try {
-    const cleaned = text
-      .replace(/```json|```/g, "")
-      .trim();
-
-    const start = cleaned.indexOf("{");
-    const end = cleaned.lastIndexOf("}");
-
-    const startArr = cleaned.indexOf("[");
-    const endArr = cleaned.lastIndexOf("]");
-
-    // Handle ARRAY response
-    if (startArr !== -1 && (startArr < start || start === -1)) {
-      const jsonString = cleaned.slice(startArr, endArr + 1);
-      return JSON.parse(jsonString);
-    }
-
-    // Handle OBJECT response
-    if (start !== -1 && end !== -1) {
-      const jsonString = cleaned.slice(start, end + 1);
-      return JSON.parse(jsonString);
-    }
-
-    throw new Error("No valid JSON found");
-  } catch (err) {
-    throw new Error("AI returned invalid JSON: " + err.message);
-  }
+function successResponse(data) {
+  return formatResponse(data);
 }
 
-//
 // ════════════════════════════════════════════════════════
-//  1. GENERATE IDEAS
+// ENDPOINT 1: GENERATE IDEAS
 // ════════════════════════════════════════════════════════
+/**
+ * Flow: INPUT → AI ENGINE (generate ideas) → ALGORITHMS (rank) → OUTPUT
+ */
 router.post("/generate-ideas", async (req, res) => {
-  const { valid, missing } = validateInput(req, ["skills", "interest"]);
-  if (!valid) {
-    return res.status(400).json({ success: false, error: missing.join(", ") });
-  }
+  try {
+    const { valid, missing } = validateInput(req, ["skills", "interest"]);
+    if (!valid) {
+      return res.status(400).json({ success: false, error: missing.join(", ") });
+    }
 
-  const { skills, budget, interest } = req.body;
+    const { skills, budget, interest } = req.body;
 
-  const prompt = `
-Generate 5 business ideas as VALID JSON ARRAY ONLY.
+    // STEP 1: Call AI Engine (NOT direct Gemini)
+    const prompt = `
+Generate exactly 5 business ideas as a JSON ARRAY.
 
-Skills: ${skills}
+User Skills: ${skills}
 Budget: ${budget || "not specified"}
 Interest: ${interest}
 
-Return format:
+Return ONLY this format:
 [
   {
     "id": 1,
     "name": "Business Name",
-    "description": "One line",
-    "why_it_fits": "Reason",
-    "startup_cost": "$100-$500",
-    "time_to_profit": "2-3 months"
+    "description": "One line description",
+    "why_it_fits": "How it matches skills/interests",
+    "startup_cost": "$X-$Y",
+    "time_to_profit": "X-Y months"
   }
 ]
 `;
 
-  try {
-    const aiResponse = await callAI(prompt);
-    const ideas = safeJSONParse(aiResponse);
-    res.json(formatResponse({ ideas }));
+    const aiResponse = await callGemini(prompt);
+    
+    // STEP 2: Parse AI response
+    const rawIdeas = parseAIResponse(aiResponse);
+    
+    // STEP 3: Process through Algorithms (rank, normalize)
+    const processedIdeas = processIdeas(rawIdeas);
+    
+    // STEP 4: Return structured response
+    res.json(successResponse({ 
+      ideas: processedIdeas,
+      count: processedIdeas.length 
+    }));
+
   } catch (err) {
+    console.error("generate-ideas error:", err);
     res.status(500).json({ success: false, error: err.message });
   }
 });
 
-//
 // ════════════════════════════════════════════════════════
-//  2. ANALYZE IDEA
+// ENDPOINT 2: ANALYZE IDEA
 // ════════════════════════════════════════════════════════
+/**
+ * Flow: INPUT → AI ENGINE (analyze) → PARSE → ALGORITHMS (normalize) → OUTPUT
+ */
 router.post("/analyze-idea", async (req, res) => {
-  const { valid, missing } = validateInput(req, ["idea"]);
-  if (!valid) {
-    return res.status(400).json({ success: false, error: missing.join(", ") });
-  }
+  try {
+    const { valid, missing } = validateInput(req, ["idea"]);
+    if (!valid) {
+      return res.status(400).json({ success: false, error: missing.join(", ") });
+    }
 
-  const { idea } = req.body;
+    const { idea } = req.body;
 
-  const prompt = `
-Analyze this business idea: "${idea}"
+    // STEP 1: Call AI Engine
+    const prompt = `
+Analyze this business idea in detail: "${idea}"
 
-Return ONLY valid JSON:
-
+Return ONLY this JSON format:
 {
-  "demand": { "score": 7, "summary": "..." },
-  "competition": { "level": "Medium", "score": 5, "summary": "..." },
-  "risk": { "level": "Medium", "top_risks": ["..."] },
+  "demand": { 
+    "score": 7, 
+    "summary": "Market demand assessment"
+  },
+  "competition": { 
+    "level": "Medium", 
+    "score": 5, 
+    "summary": "Competitive landscape"
+  },
+  "risk": { 
+    "level": "Medium", 
+    "top_risks": ["Risk 1", "Risk 2"]
+  },
   "cost_estimate": {
     "minimum": "$100",
     "recommended": "$500",
     "breakdown": ["Item: $50"]
-  }
+  },
+  "skill_match": 7
 }
 `;
 
-  try {
-    const aiResponse = await callAI(prompt);
-    const analysis = safeJSONParse(aiResponse);
-    res.json(formatResponse(analysis));
+    const aiResponse = await callGemini(prompt);
+    
+    // STEP 2: Parse AI response
+    const rawAnalysis = parseAIResponse(aiResponse);
+    
+    // STEP 3: Process through Algorithms (normalize scores, calculate feasibility)
+    const processedAnalysis = processAnalysis(rawAnalysis);
+    
+    // STEP 4: Return structured response
+    res.json(successResponse(processedAnalysis));
+
   } catch (err) {
+    console.error("analyze-idea error:", err);
     res.status(500).json({ success: false, error: err.message });
   }
 });
 
-//
 // ════════════════════════════════════════════════════════
-//  3. GENERATE PLAN
+// ENDPOINT 3: GENERATE PLAN
 // ════════════════════════════════════════════════════════
+/**
+ * Flow: INPUT → AI ENGINE (plan) → PARSE → OUTPUT
+ */
 router.post("/generate-plan", async (req, res) => {
-  const { valid, missing } = validateInput(req, ["idea"]);
-  if (!valid) {
-    return res.status(400).json({ success: false, error: missing.join(", ") });
-  }
+  try {
+    const { valid, missing } = validateInput(req, ["idea"]);
+    if (!valid) {
+      return res.status(400).json({ success: false, error: missing.join(", ") });
+    }
 
-  const { idea } = req.body;
+    const { idea } = req.body;
 
-  const prompt = `
-Create business roadmap as VALID JSON ONLY:
+    // STEP 1: Call AI Engine
+    const prompt = `
+Create a detailed business roadmap for: "${idea}"
 
+Return ONLY this JSON format:
 {
   "setup_steps": [
-    { "step": 1, "title": "...", "description": "...", "cost": "$0" }
+    { "step": 1, "title": "Title", "description": "Details", "cost": "$0" }
   ],
   "plan_7_day": [
-    { "day": "Day 1-2", "focus": "...", "tasks": ["..."] }
+    { "day": "Day 1-2", "focus": "Focus area", "tasks": ["Task 1"] }
   ],
   "plan_30_day": [
-    { "week": "Week 1", "goal": "...", "milestones": ["..."] }
+    { "week": "Week 1", "goal": "Goal", "milestones": ["Milestone 1"] }
   ],
-  "success_tips": ["...", "..."]
+  "success_tips": ["Tip 1", "Tip 2"]
 }
 `;
 
-  try {
-    const aiResponse = await callAI(prompt);
-    const plan = safeJSONParse(aiResponse);
-    res.json(formatResponse(plan));
+    const aiResponse = await callGemini(prompt);
+    
+    // STEP 2: Parse AI response
+    const plan = parseAIResponse(aiResponse);
+    
+    // STEP 3: Return structured response
+    res.json(successResponse(plan));
+
   } catch (err) {
+    console.error("generate-plan error:", err);
     res.status(500).json({ success: false, error: err.message });
   }
 });
 
-//
 // ════════════════════════════════════════════════════════
-//  4. MARKETING CONTENT
+// ENDPOINT 4: MARKETING CONTENT
 // ════════════════════════════════════════════════════════
+/**
+ * Flow: INPUT → AI ENGINE (marketing) → PARSE → OUTPUT
+ */
 router.post("/marketing-content", async (req, res) => {
-  const { valid, missing } = validateInput(req, ["idea"]);
-  if (!valid) {
-    return res.status(400).json({ success: false, error: missing.join(", ") });
-  }
+  try {
+    const { valid, missing } = validateInput(req, ["idea"]);
+    if (!valid) {
+      return res.status(400).json({ success: false, error: missing.join(", ") });
+    }
 
-  const { idea } = req.body;
+    const { idea } = req.body;
 
-  const prompt = `
-Create marketing content as VALID JSON ONLY:
+    // STEP 1: Call AI Engine
+    const prompt = `
+Create compelling marketing content for: "${idea}"
 
+Return ONLY this JSON format:
 {
   "instagram_posts": [
-    { "caption": "...", "hashtags": ["#a", "#b"] }
+    { "caption": "Engaging caption", "hashtags": ["#tag1", "#tag2"] }
   ],
   "ad_copies": [
-    { "headline": "...", "body": "...", "cta": "..." }
+    { "headline": "Headline", "body": "Body text", "cta": "Call to action" }
   ],
-  "slogans": ["..."],
+  "slogans": ["Slogan 1", "Slogan 2"],
   "captions": {
-    "facebook": "...",
-    "linkedin": "...",
-    "whatsapp": "..."
+    "facebook": "Facebook caption",
+    "linkedin": "LinkedIn caption",
+    "whatsapp": "WhatsApp caption"
   }
 }
 `;
 
-  try {
-    const aiResponse = await callAI(prompt);
-    const content = safeJSONParse(aiResponse);
-    res.json(formatResponse(content));
+    const aiResponse = await callGemini(prompt);
+    
+    // STEP 2: Parse AI response
+    const content = parseAIResponse(aiResponse);
+    
+    // STEP 3: Return structured response
+    res.json(successResponse(content));
+
   } catch (err) {
+    console.error("marketing-content error:", err);
     res.status(500).json({ success: false, error: err.message });
   }
 });
 
-//
 // ════════════════════════════════════════════════════════
-//  5. FEASIBILITY SCORE (NO AI)
+// ENDPOINT 5: FEASIBILITY SCORE (Pure Algorithms - No AI)
 // ════════════════════════════════════════════════════════
+/**
+ * Flow: INPUT → ALGORITHMS (calculate) → OUTPUT
+ * No AI Engine needed - pure calculation
+ */
 router.post("/feasibility-score", (req, res) => {
-  const { valid, missing } = validateInput(req, ["demand", "competition", "skill_match"]);
-  if (!valid) {
-    return res.status(400).json({ success: false, error: missing.join(", ") });
+  try {
+    const { valid, missing } = validateInput(req, ["demand", "competition", "skill_match"]);
+    if (!valid) {
+      return res.status(400).json({ success: false, error: missing.join(", ") });
+    }
+
+    const demand = parseFloat(req.body.demand);
+    const competition = parseFloat(req.body.competition);
+    const skill_match = parseFloat(req.body.skill_match);
+
+    // Validate input ranges
+    if ([demand, competition, skill_match].some(v => isNaN(v) || v < 1 || v > 10)) {
+      return res.status(400).json({ 
+        success: false, 
+        error: "All scores must be between 1 and 10" 
+      });
+    }
+
+    // STEP 1: Call Algorithms (no AI needed)
+    const result = calculateIdeaFeasibility(demand, competition, skill_match);
+    
+    // STEP 2: Return structured response
+    res.json(successResponse(result));
+
+  } catch (err) {
+    console.error("feasibility-score error:", err);
+    res.status(500).json({ success: false, error: err.message });
   }
-
-  const demand = parseFloat(req.body.demand);
-  const competition = parseFloat(req.body.competition);
-  const skill_match = parseFloat(req.body.skill_match);
-
-  if ([demand, competition, skill_match].some(v => isNaN(v) || v < 1 || v > 10)) {
-    return res.status(400).json({ success: false, error: "Scores must be 1–10" });
-  }
-
-  const raw = demand * 0.4 + skill_match * 0.4 - competition * 0.2;
-  const score = Math.min(10, Math.max(0, Number(raw.toFixed(2))));
-
-  let grade, verdict;
-
-  if (score >= 7.5) {
-    grade = "A";
-    verdict = "Excellent";
-  } else if (score >= 6) {
-    grade = "B";
-    verdict = "Good";
-  } else if (score >= 4.5) {
-    grade = "C";
-    verdict = "Average";
-  } else {
-    grade = "D";
-    verdict = "Risky";
-  }
-
-  res.json(formatResponse({ score, grade, verdict }));
 });
 
 module.exports = router;
