@@ -1,0 +1,15 @@
+# Terminal Environment Changes
+
+## Extension: GitHub.copilot-chat
+
+Enables use of `copilot-debug` and `copilot` commands in the terminal
+
+- `COPILOT_DEBUG_NONCE=bcef3a82fbfe2275416779c900844487`
+- `PATH=c:\Users\HP\AppData\Roaming\Code\User\globalStorage\github.copilot-chat\debugCommand;c:\Users\HP\AppData\Roaming\Code\User\globalStorage\github.copilot-chat\copilotCli;${env:PATH}`
+
+## Extension: ms-python.python
+
+Enables `python.terminal.shellIntegration.enabled` by modifying `PYTHONSTARTUP` and `PYTHON_BASIC_REPL`
+
+- `PYTHONSTARTUP=c:\Users\HP\AppData\Roaming\Code\User\workspaceStorage\62864910a0aff464b1813c86721d4577\ms-python.python\pythonrc.py`
+- `PYTHON_BASIC_REPL=1`
