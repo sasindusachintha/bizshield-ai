@@ -1,0 +1,636 @@
+<project version="4">
+  <component name="BookmarksManager">
+    <option name="groups">
+      <GroupState>
+        <option name="name" value="sampleApp2" />
+      </GroupState>
+    </option>
+  </component>
+  <component name="FileEditorManager">
+    <leaf ideFingerprint="14tx6ag3p13sc">
+      <file current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" file-id="602097" managing-fs="1770836678410">
+          <provider editor-type-id="android-designer2" selected="true" />
+        </entry>
+        <tab><![CDATA[{"tabTitle":"activity_login.xml","foregroundColor":-3025959,"textAttributes":{"name":"a"},"icon":[10,57,99,111,109,46,105,110,116,101,108,108,105,106,46,117,105,46,105,99,111,110,115,46,82,97,115,116,101,114,105,122,101,100,73,109,97,103,101,68,97,116,97,76,111,97,100,101,114,68,101,115,99,114,105,112,116,111,114,18,66,10,17,102,105,108,101,84,121,112,101,115,47,120,109,108,46,115,118,103,18,23,101,120,112,117,105,47,102,105,108,101,84,121,112,101,115,47,120,109,108,46,115,118,103,26,12,99,111,109,46,105,110,116,101,108,108,105,106,40,-33,-3,-24,-123,1,48,0]}]]></tab>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTypeUsageLocalSummary"><![CDATA[{
+  "data": {
+    "XML": {
+      "usageCount": 1,
+      "lastUsed": 1774366694737
+    }
+  }
+}]]></component>
+  <component name="IdeDocumentHistory"><![CDATA[{}]]></component>
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="$PROJECT_DIR$/.idea" />
+      </set>
+    </option>
+  </component>
+  <component name="LanguageUsageStatistics">
+    <language id="XML">
+      <summary usageCount="1" lastUsage="1774366694737" />
+    </language>
+  </component>
+  <component name="ProjectRoots">
+    <project-root url="file://$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1" />
+    <panes>
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="sampleApp2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2}" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sampleApp2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2}" type="462c0819:PsiDirectoryNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/.gradle}" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sampleApp2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2}" type="462c0819:PsiDirectoryNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app}" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sampleApp2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2}" type="462c0819:PsiDirectoryNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app}" type="462c0819:PsiDirectoryNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app/src}" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sampleApp2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2}" type="462c0819:PsiDirectoryNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app}" type="462c0819:PsiDirectoryNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app/src}" type="462c0819:PsiDirectoryNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app/src/main}" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sampleApp2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2}" type="462c0819:PsiDirectoryNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app}" type="462c0819:PsiDirectoryNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app/src}" type="462c0819:PsiDirectoryNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app/src/main}" type="462c0819:PsiDirectoryNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app/src/main/java}" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sampleApp2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2}" type="462c0819:PsiDirectoryNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app}" type="462c0819:PsiDirectoryNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app/src}" type="462c0819:PsiDirectoryNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app/src/main}" type="462c0819:PsiDirectoryNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app/src/main/java}" type="462c0819:PsiDirectoryNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app/src/main/java/com}" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sampleApp2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2}" type="462c0819:PsiDirectoryNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app}" type="462c0819:PsiDirectoryNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app/src}" type="462c0819:PsiDirectoryNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app/src/main}" type="462c0819:PsiDirectoryNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app/src/main/java}" type="462c0819:PsiDirectoryNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app/src/main/java/com}" type="462c0819:PsiDirectoryNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app/src/main/java/com/example}" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sampleApp2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2}" type="462c0819:PsiDirectoryNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app}" type="462c0819:PsiDirectoryNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app/src}" type="462c0819:PsiDirectoryNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app/src/main}" type="462c0819:PsiDirectoryNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app/src/main/java}" type="462c0819:PsiDirectoryNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app/src/main/java/com}" type="462c0819:PsiDirectoryNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app/src/main/java/com/example}" type="462c0819:PsiDirectoryNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app/src/main/java/com/example/sampleapp2}" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sampleApp2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2}" type="462c0819:PsiDirectoryNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app}" type="462c0819:PsiDirectoryNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app/src}" type="462c0819:PsiDirectoryNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app/src/main}" type="462c0819:PsiDirectoryNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app/src/main/res}" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sampleApp2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2}" type="462c0819:PsiDirectoryNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app}" type="462c0819:PsiDirectoryNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app/src}" type="462c0819:PsiDirectoryNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app/src/main}" type="462c0819:PsiDirectoryNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app/src/main/res}" type="462c0819:PsiDirectoryNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app/src/main/res/drawable}" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sampleApp2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2}" type="462c0819:PsiDirectoryNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app}" type="462c0819:PsiDirectoryNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app/src}" type="462c0819:PsiDirectoryNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app/src/main}" type="462c0819:PsiDirectoryNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app/src/main/res}" type="462c0819:PsiDirectoryNode" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app/src/main/res/layout}" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+          <presentation>
+            <attributes />
+            <data iconPath="expui/toolwindows/project.svg" iconPlugin="com.intellij" isLeaf="false" text="sampleApp2" />
+            <item name="sampleApp2" type="b2602c69:ProjectViewProjectNode" />
+            <presentation>
+              <attributes>
+                <map>
+                  <entry key="filePath" value="$PROJECT_DIR$" />
+                </map>
+              </attributes>
+              <data iconPath="expui/nodes/module.svg" iconPlugin="com.intellij" isLeaf="false" text="sampleApp2" />
+              <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2}" type="462c0819:PsiDirectoryNode" />
+              <presentation>
+                <attributes>
+                  <map>
+                    <entry key="filePath" value="$PROJECT_DIR$/.gradle" />
+                  </map>
+                </attributes>
+                <data iconPath="expui/nodes/excludeRoot.svg" iconPlugin="com.intellij" isLeaf="false" text=".gradle" />
+                <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/.gradle}" type="462c0819:PsiDirectoryNode" />
+                <presentation>
+                  <attributes>
+                    <map>
+                      <entry key="filePath" value="$PROJECT_DIR$/.gradle/config.properties" />
+                    </map>
+                  </attributes>
+                  <data iconPath="expui/fileTypes/properties.svg" iconPlugin="com.intellij" isLeaf="true" text="config.properties" />
+                  <item name="config.properties" type="ab9368bb:PsiFileNode" />
+                </presentation>
+              </presentation>
+              <presentation>
+                <attributes>
+                  <map>
+                    <entry key="filePath" value="$PROJECT_DIR$/.idea" />
+                  </map>
+                </attributes>
+                <data iconPath="expui/nodes/excludeRoot.svg" iconPlugin="com.intellij" isLeaf="false" text=".idea" />
+                <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/.idea}" type="462c0819:PsiDirectoryNode" />
+              </presentation>
+              <presentation>
+                <attributes>
+                  <map>
+                    <entry key="filePath" value="$PROJECT_DIR$/app" />
+                  </map>
+                </attributes>
+                <data iconPath="expui/nodes/excludeRoot.svg" iconPlugin="com.intellij" isLeaf="false" text="app" />
+                <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app}" type="462c0819:PsiDirectoryNode" />
+                <presentation>
+                  <attributes>
+                    <map>
+                      <entry key="filePath" value="$PROJECT_DIR$/app/src" />
+                    </map>
+                  </attributes>
+                  <data iconPath="expui/nodes/excludeRoot.svg" iconPlugin="com.intellij" isLeaf="false" text="src" />
+                  <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app/src}" type="462c0819:PsiDirectoryNode" />
+                  <presentation>
+                    <attributes>
+                      <map>
+                        <entry key="filePath" value="$PROJECT_DIR$/app/src/androidTest" />
+                      </map>
+                    </attributes>
+                    <data iconPath="expui/nodes/excludeRoot.svg" iconPlugin="com.intellij" isLeaf="false" text="androidTest" />
+                    <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app/src/androidTest}" type="462c0819:PsiDirectoryNode" />
+                  </presentation>
+                  <presentation>
+                    <attributes>
+                      <map>
+                        <entry key="filePath" value="$PROJECT_DIR$/app/src/main" />
+                      </map>
+                    </attributes>
+                    <data iconPath="expui/nodes/excludeRoot.svg" iconPlugin="com.intellij" isLeaf="false" text="main" />
+                    <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app/src/main}" type="462c0819:PsiDirectoryNode" />
+                    <presentation>
+                      <attributes>
+                        <map>
+                          <entry key="filePath" value="$PROJECT_DIR$/app/src/main/java" />
+                        </map>
+                      </attributes>
+                      <data iconPath="expui/nodes/excludeRoot.svg" iconPlugin="com.intellij" isLeaf="false" text="java" />
+                      <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app/src/main/java}" type="462c0819:PsiDirectoryNode" />
+                      <presentation>
+                        <attributes>
+                          <map>
+                            <entry key="filePath" value="$PROJECT_DIR$/app/src/main/java/com" />
+                          </map>
+                        </attributes>
+                        <data iconPath="expui/nodes/excludeRoot.svg" iconPlugin="com.intellij" isLeaf="false" text="com" />
+                        <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app/src/main/java/com}" type="462c0819:PsiDirectoryNode" />
+                        <presentation>
+                          <attributes>
+                            <map>
+                              <entry key="filePath" value="$PROJECT_DIR$/app/src/main/java/com/example" />
+                            </map>
+                          </attributes>
+                          <data iconPath="expui/nodes/excludeRoot.svg" iconPlugin="com.intellij" isLeaf="false" text="example" />
+                          <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app/src/main/java/com/example}" type="462c0819:PsiDirectoryNode" />
+                          <presentation>
+                            <attributes>
+                              <map>
+                                <entry key="filePath" value="$PROJECT_DIR$/app/src/main/java/com/example/sampleapp2" />
+                              </map>
+                            </attributes>
+                            <data iconPath="expui/nodes/excludeRoot.svg" iconPlugin="com.intellij" isLeaf="false" text="sampleapp2" />
+                            <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app/src/main/java/com/example/sampleapp2}" type="462c0819:PsiDirectoryNode" />
+                            <presentation>
+                              <attributes>
+                                <map>
+                                  <entry key="filePath" value="$PROJECT_DIR$/app/src/main/java/com/example/sampleapp2/Dashboard.java" />
+                                </map>
+                              </attributes>
+                              <data iconPath="expui/fileTypes/java.svg" iconPlugin="com.intellij" isLeaf="true" text="Dashboard.java" />
+                              <item name="Dashboard.java" type="ab9368bb:PsiFileNode" />
+                            </presentation>
+                            <presentation>
+                              <attributes>
+                                <map>
+                                  <entry key="filePath" value="$PROJECT_DIR$/app/src/main/java/com/example/sampleapp2/EmployeeModel.java" />
+                                </map>
+                              </attributes>
+                              <data iconPath="expui/fileTypes/java.svg" iconPlugin="com.intellij" isLeaf="true" text="EmployeeModel.java" />
+                              <item name="EmployeeModel.java" type="ab9368bb:PsiFileNode" />
+                            </presentation>
+                            <presentation>
+                              <attributes>
+                                <map>
+                                  <entry key="filePath" value="$PROJECT_DIR$/app/src/main/java/com/example/sampleapp2/login.java" />
+                                </map>
+                              </attributes>
+                              <data iconPath="expui/fileTypes/java.svg" iconPlugin="com.intellij" isLeaf="true" text="login.java" />
+                              <item name="login.java" type="ab9368bb:PsiFileNode" />
+                            </presentation>
+                            <presentation>
+                              <attributes>
+                                <map>
+                                  <entry key="filePath" value="$PROJECT_DIR$/app/src/main/java/com/example/sampleapp2/MainActivity.java" />
+                                </map>
+                              </attributes>
+                              <data iconPath="expui/fileTypes/java.svg" iconPlugin="com.intellij" isLeaf="true" text="MainActivity.java" />
+                              <item name="MainActivity.java" type="ab9368bb:PsiFileNode" />
+                            </presentation>
+                            <presentation>
+                              <attributes>
+                                <map>
+                                  <entry key="filePath" value="$PROJECT_DIR$/app/src/main/java/com/example/sampleapp2/Signup.java" />
+                                </map>
+                              </attributes>
+                              <data iconPath="expui/fileTypes/java.svg" iconPlugin="com.intellij" isLeaf="true" text="Signup.java" />
+                              <item name="Signup.java" type="ab9368bb:PsiFileNode" />
+                            </presentation>
+                          </presentation>
+                        </presentation>
+                      </presentation>
+                    </presentation>
+                    <presentation>
+                      <attributes>
+                        <map>
+                          <entry key="filePath" value="$PROJECT_DIR$/app/src/main/res" />
+                        </map>
+                      </attributes>
+                      <data iconPath="expui/nodes/excludeRoot.svg" iconPlugin="com.intellij" isLeaf="false" text="res" />
+                      <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app/src/main/res}" type="462c0819:PsiDirectoryNode" />
+                      <presentation>
+                        <attributes>
+                          <map>
+                            <entry key="filePath" value="$PROJECT_DIR$/app/src/main/res/drawable" />
+                          </map>
+                        </attributes>
+                        <data iconPath="expui/nodes/excludeRoot.svg" iconPlugin="com.intellij" isLeaf="false" text="drawable" />
+                        <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app/src/main/res/drawable}" type="462c0819:PsiDirectoryNode" />
+                        <presentation>
+                          <attributes>
+                            <map>
+                              <entry key="filePath" value="$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher_background.xml" />
+                            </map>
+                          </attributes>
+                          <data iconPath="expui/fileTypes/xml.svg" iconPlugin="com.intellij" isLeaf="true" text="ic_launcher_background.xml" />
+                          <item name="ic_launcher_background.xml" type="ab9368bb:PsiFileNode" />
+                        </presentation>
+                        <presentation>
+                          <attributes>
+                            <map>
+                              <entry key="filePath" value="$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher_foreground.xml" />
+                            </map>
+                          </attributes>
+                          <data iconPath="expui/fileTypes/xml.svg" iconPlugin="com.intellij" isLeaf="true" text="ic_launcher_foreground.xml" />
+                          <item name="ic_launcher_foreground.xml" type="ab9368bb:PsiFileNode" />
+                        </presentation>
+                      </presentation>
+                      <presentation>
+                        <attributes>
+                          <map>
+                            <entry key="filePath" value="$PROJECT_DIR$/app/src/main/res/layout" />
+                          </map>
+                        </attributes>
+                        <data iconPath="expui/nodes/excludeRoot.svg" iconPlugin="com.intellij" isLeaf="false" text="layout" />
+                        <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app/src/main/res/layout}" type="462c0819:PsiDirectoryNode" />
+                        <presentation>
+                          <attributes>
+                            <map>
+                              <entry key="filePath" value="$PROJECT_DIR$/app/src/main/res/layout/activity_dashboard.xml" />
+                            </map>
+                          </attributes>
+                          <data iconPath="expui/fileTypes/xml.svg" iconPlugin="com.intellij" isLeaf="true" text="activity_dashboard.xml" />
+                          <item name="activity_dashboard.xml" type="ab9368bb:PsiFileNode" />
+                        </presentation>
+                        <presentation>
+                          <attributes>
+                            <map>
+                              <entry key="filePath" value="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" />
+                            </map>
+                          </attributes>
+                          <data iconPath="expui/fileTypes/xml.svg" iconPlugin="com.intellij" isLeaf="true" text="activity_login.xml" />
+                          <item name="activity_login.xml" type="ab9368bb:PsiFileNode" />
+                        </presentation>
+                        <presentation>
+                          <attributes>
+                            <map>
+                              <entry key="filePath" value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
+                            </map>
+                          </attributes>
+                          <data iconPath="expui/fileTypes/xml.svg" iconPlugin="com.intellij" isLeaf="true" text="activity_main.xml" />
+                          <item name="activity_main.xml" type="ab9368bb:PsiFileNode" />
+                        </presentation>
+                        <presentation>
+                          <attributes>
+                            <map>
+                              <entry key="filePath" value="$PROJECT_DIR$/app/src/main/res/layout/activity_signup.xml" />
+                            </map>
+                          </attributes>
+                          <data iconPath="expui/fileTypes/xml.svg" iconPlugin="com.intellij" isLeaf="true" text="activity_signup.xml" />
+                          <item name="activity_signup.xml" type="ab9368bb:PsiFileNode" />
+                        </presentation>
+                      </presentation>
+                      <presentation>
+                        <attributes>
+                          <map>
+                            <entry key="filePath" value="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi" />
+                          </map>
+                        </attributes>
+                        <data iconPath="expui/nodes/excludeRoot.svg" iconPlugin="com.intellij" isLeaf="false" text="mipmap-anydpi" />
+                        <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app/src/main/res/mipmap-anydpi}" type="462c0819:PsiDirectoryNode" />
+                      </presentation>
+                      <presentation>
+                        <attributes>
+                          <map>
+                            <entry key="filePath" value="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi" />
+                          </map>
+                        </attributes>
+                        <data iconPath="expui/nodes/excludeRoot.svg" iconPlugin="com.intellij" isLeaf="false" text="mipmap-hdpi" />
+                        <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app/src/main/res/mipmap-hdpi}" type="462c0819:PsiDirectoryNode" />
+                      </presentation>
+                      <presentation>
+                        <attributes>
+                          <map>
+                            <entry key="filePath" value="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi" />
+                          </map>
+                        </attributes>
+                        <data iconPath="expui/nodes/excludeRoot.svg" iconPlugin="com.intellij" isLeaf="false" text="mipmap-mdpi" />
+                        <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app/src/main/res/mipmap-mdpi}" type="462c0819:PsiDirectoryNode" />
+                      </presentation>
+                      <presentation>
+                        <attributes>
+                          <map>
+                            <entry key="filePath" value="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi" />
+                          </map>
+                        </attributes>
+                        <data iconPath="expui/nodes/excludeRoot.svg" iconPlugin="com.intellij" isLeaf="false" text="mipmap-xhdpi" />
+                        <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app/src/main/res/mipmap-xhdpi}" type="462c0819:PsiDirectoryNode" />
+                      </presentation>
+                      <presentation>
+                        <attributes>
+                          <map>
+                            <entry key="filePath" value="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi" />
+                          </map>
+                        </attributes>
+                        <data iconPath="expui/nodes/excludeRoot.svg" iconPlugin="com.intellij" isLeaf="false" text="mipmap-xxhdpi" />
+                        <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app/src/main/res/mipmap-xxhdpi}" type="462c0819:PsiDirectoryNode" />
+                      </presentation>
+                      <presentation>
+                        <attributes>
+                          <map>
+                            <entry key="filePath" value="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi" />
+                          </map>
+                        </attributes>
+                        <data iconPath="expui/nodes/excludeRoot.svg" iconPlugin="com.intellij" isLeaf="false" text="mipmap-xxxhdpi" />
+                        <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app/src/main/res/mipmap-xxxhdpi}" type="462c0819:PsiDirectoryNode" />
+                      </presentation>
+                      <presentation>
+                        <attributes>
+                          <map>
+                            <entry key="filePath" value="$PROJECT_DIR$/app/src/main/res/values" />
+                          </map>
+                        </attributes>
+                        <data iconPath="expui/nodes/excludeRoot.svg" iconPlugin="com.intellij" isLeaf="false" text="values" />
+                        <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app/src/main/res/values}" type="462c0819:PsiDirectoryNode" />
+                      </presentation>
+                      <presentation>
+                        <attributes>
+                          <map>
+                            <entry key="filePath" value="$PROJECT_DIR$/app/src/main/res/values-night" />
+                          </map>
+                        </attributes>
+                        <data iconPath="expui/nodes/excludeRoot.svg" iconPlugin="com.intellij" isLeaf="false" text="values-night" />
+                        <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app/src/main/res/values-night}" type="462c0819:PsiDirectoryNode" />
+                      </presentation>
+                      <presentation>
+                        <attributes>
+                          <map>
+                            <entry key="filePath" value="$PROJECT_DIR$/app/src/main/res/xml" />
+                          </map>
+                        </attributes>
+                        <data iconPath="expui/nodes/excludeRoot.svg" iconPlugin="com.intellij" isLeaf="false" text="xml" />
+                        <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app/src/main/res/xml}" type="462c0819:PsiDirectoryNode" />
+                      </presentation>
+                    </presentation>
+                    <presentation>
+                      <attributes>
+                        <map>
+                          <entry key="filePath" value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+                        </map>
+                      </attributes>
+                      <data iconPath="studio/icons/shell/filetree/manifest-file.svg" iconPlugin="org.jetbrains.android" isLeaf="true" text="AndroidManifest.xml" />
+                      <item name="AndroidManifest.xml" type="ab9368bb:PsiFileNode" />
+                    </presentation>
+                  </presentation>
+                  <presentation>
+                    <attributes>
+                      <map>
+                        <entry key="filePath" value="$PROJECT_DIR$/app/src/test" />
+                      </map>
+                    </attributes>
+                    <data iconPath="expui/nodes/excludeRoot.svg" iconPlugin="com.intellij" isLeaf="false" text="test" />
+                    <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/app/src/test}" type="462c0819:PsiDirectoryNode" />
+                  </presentation>
+                </presentation>
+                <presentation>
+                  <attributes>
+                    <map>
+                      <entry key="filePath" value="$PROJECT_DIR$/app/.gitignore" />
+                    </map>
+                  </attributes>
+                  <data iconPath="expui/fileTypes/ignored.svg" iconPlugin="com.intellij" isLeaf="true" text=".gitignore" />
+                  <item name=".gitignore" type="ab9368bb:PsiFileNode" />
+                </presentation>
+                <presentation>
+                  <attributes>
+                    <map>
+                      <entry key="filePath" value="$PROJECT_DIR$/app/build.gradle.kts" />
+                    </map>
+                  </attributes>
+                  <data iconPath="org/jetbrains/kotlin/idea/icons/expui/kotlinGradleScript.svg" iconPlugin="org.jetbrains.kotlin" isLeaf="true" text="build.gradle.kts" />
+                  <item name="build.gradle.kts" type="24436e51:KtFileTreeNode" />
+                </presentation>
+                <presentation>
+                  <attributes>
+                    <map>
+                      <entry key="filePath" value="$PROJECT_DIR$/app/google-services.json" />
+                    </map>
+                  </attributes>
+                  <data iconPath="expui/fileTypes/json.svg" iconPlugin="com.intellij" isLeaf="true" text="google-services.json" />
+                  <item name="google-services.json" type="ab9368bb:PsiFileNode" />
+                </presentation>
+                <presentation>
+                  <attributes>
+                    <map>
+                      <entry key="filePath" value="$PROJECT_DIR$/app/proguard-rules.pro" />
+                    </map>
+                  </attributes>
+                  <data iconPath="expui/fileTypes/text.svg" iconPlugin="com.intellij" isLeaf="true" text="proguard-rules.pro" />
+                  <item name="proguard-rules.pro" type="ab9368bb:PsiFileNode" />
+                </presentation>
+              </presentation>
+              <presentation>
+                <attributes>
+                  <map>
+                    <entry key="filePath" value="$PROJECT_DIR$/gradle" />
+                  </map>
+                </attributes>
+                <data iconPath="expui/nodes/excludeRoot.svg" iconPlugin="com.intellij" isLeaf="false" text="gradle" />
+                <item name="dir{file://C:/Users/sasin/OneDrive/Desktop/ssssssssssss/al/MobileApp-main/MobileApp-main/sampleApp2/gradle}" type="462c0819:PsiDirectoryNode" />
+              </presentation>
+              <presentation>
+                <attributes>
+                  <map>
+                    <entry key="filePath" value="$PROJECT_DIR$/.gitignore" />
+                  </map>
+                </attributes>
+                <data iconPath="expui/fileTypes/ignored.svg" iconPlugin="com.intellij" isLeaf="true" text=".gitignore" />
+                <item name=".gitignore" type="ab9368bb:PsiFileNode" />
+              </presentation>
+              <presentation>
+                <attributes>
+                  <map>
+                    <entry key="filePath" value="$PROJECT_DIR$/build.gradle.kts" />
+                  </map>
+                </attributes>
+                <data iconPath="org/jetbrains/kotlin/idea/icons/expui/kotlinGradleScript.svg" iconPlugin="org.jetbrains.kotlin" isLeaf="true" text="build.gradle.kts" />
+                <item name="build.gradle.kts" type="24436e51:KtFileTreeNode" />
+              </presentation>
+              <presentation>
+                <attributes>
+                  <map>
+                    <entry key="filePath" value="$PROJECT_DIR$/gradle.properties" />
+                  </map>
+                </attributes>
+                <data iconPath="expui/fileTypes/properties.svg" iconPlugin="com.intellij" isLeaf="true" text="gradle.properties" />
+                <item name="gradle.properties" type="ab9368bb:PsiFileNode" />
+              </presentation>
+              <presentation>
+                <attributes>
+                  <map>
+                    <entry key="filePath" value="$PROJECT_DIR$/gradlew" />
+                  </map>
+                </attributes>
+                <data iconPath="expui/fileTypes/shell.svg" iconPlugin="com.intellij" isLeaf="true" text="gradlew" />
+                <item name="gradlew" type="ab9368bb:PsiFileNode" />
+              </presentation>
+              <presentation>
+                <attributes>
+                  <map>
+                    <entry key="filePath" value="$PROJECT_DIR$/gradlew.bat" />
+                  </map>
+                </attributes>
+                <data iconPath="expui/fileTypes/text.svg" iconPlugin="com.intellij" isLeaf="true" text="gradlew.bat" />
+                <item name="gradlew.bat" type="ab9368bb:PsiFileNode" />
+              </presentation>
+              <presentation>
+                <attributes>
+                  <map>
+                    <entry key="filePath" value="$PROJECT_DIR$/local.properties" />
+                  </map>
+                </attributes>
+                <data iconPath="expui/fileTypes/properties.svg" iconPlugin="com.intellij" isLeaf="true" text="local.properties" />
+                <item name="local.properties" type="ab9368bb:PsiFileNode" />
+              </presentation>
+              <presentation>
+                <attributes>
+                  <map>
+                    <entry key="filePath" value="$PROJECT_DIR$/settings.gradle.kts" />
+                  </map>
+                </attributes>
+                <data iconPath="org/jetbrains/kotlin/idea/icons/expui/kotlinGradleScript.svg" iconPlugin="org.jetbrains.kotlin" isLeaf="true" text="settings.gradle.kts" />
+                <item name="settings.gradle.kts" type="24436e51:KtFileTreeNode" />
+              </presentation>
+            </presentation>
+            <presentation>
+              <attributes />
+              <data iconPath="expui/nodes/library.svg" iconPlugin="com.intellij" isLeaf="false" text="External Libraries" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+            </presentation>
+            <presentation>
+              <attributes />
+              <data iconPath="expui/fileTypes/scratches.svg" iconPlugin="com.intellij" isLeaf="true" text="Scratches and Consoles" />
+              <item name="Scratches and Consoles" type="b85a3e1f:ScratchTreeStructureProvider$MyProjectNode" />
+            </presentation>
+          </presentation>
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="ReaderModeSettings">
+    <option name="enableVisualFormatting" value="false" />
+  </component>
+  <component name="ToolWindowManager">
+    <layoutV2>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.32984102" />
+      <window_info id="Commit" order="1" weight="0.25" />
+      <window_info id="Resources Explorer" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Version Control" order="0" />
+      <window_info anchor="bottom" id="Terminal" order="1" />
+      <window_info anchor="bottom" id="Problems" order="2" />
+      <window_info anchor="bottom" id="Problems View" order="3" />
+      <window_info anchor="bottom" id="Logcat" order="4" />
+      <window_info anchor="bottom" id="App Quality Insights" order="5" />
+      <window_info anchor="bottom" id="Build" order="6" />
+      <window_info anchor="right" content_ui="combo" id="Notifications" order="0" weight="0.25" />
+      <window_info anchor="right" id="Gradle" order="1" weight="0.25" />
+      <window_info anchor="right" id="Device Manager" order="2" weight="0.25" />
+      <window_info anchor="right" id="Device Manager 2" order="3" weight="0.25" />
+      <window_info anchor="right" id="Running Devices" order="4" weight="0.25" />
+      <window_info anchor="right" id="StudioBot" order="5" weight="0.25" />
+      <unified_weights left="0.32984102" />
+    </layoutV2>
+    <recentWindows>
+      <value>Project</value>
+    </recentWindows>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml">
+      <provider selected="true" editor-type-id="android-designer2" />
+    </entry>
+  </component>
+</project>
