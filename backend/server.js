@@ -45,6 +45,14 @@ app.get("/", (req, res) => {
   res.json({ status: "ok", message: "BizShield AI API running" });
 });
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
+});
+
+server.on("error", (error) => {
+  if (error.code === "EADDRINUSE") {
+    console.error(`Port ${PORT} is already in use. Stop the existing server or set PORT to another value.`);
+    process.exit(1);
+  }
+  throw error;
 });

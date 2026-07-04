@@ -51,48 +51,15 @@
   const initialTheme = urlTheme || storedTheme || 'dark';
   applyTheme(initialTheme, Boolean(storedTheme && !urlTheme));
 
-  function createToggle() {
-    if (document.querySelector('.theme-toggle')) return;
-
-    const nav = document.querySelector('.site-header .navbar, nav.navbar');
-    if (!nav) return;
-
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.className = 'theme-toggle';
-    button.innerHTML = `
-      <i class="fas fa-moon" aria-hidden="true"></i>
-      <i class="fas fa-sun" aria-hidden="true"></i>
-    `;
-    button.addEventListener('click', () => {
-      applyTheme(currentTheme() === 'dark' ? 'light' : 'dark');
-    });
-
-    const landingLinks = nav.querySelector('.nav-links');
-    const collapsedNav = nav.querySelector('.navbar-collapse');
-
-    if (landingLinks) {
-      landingLinks.insertAdjacentElement('afterend', button);
-    } else if (collapsedNav) {
-      collapsedNav.appendChild(button);
-    } else {
-      nav.appendChild(button);
-    }
-
-    updateToggleLabels();
-  }
-
-  document.addEventListener('DOMContentLoaded', createToggle);
-
   media.addEventListener('change', (event) => {
     if (!readStoredTheme()) {
       applyTheme(event.matches ? 'dark' : 'light', false);
     }
   });
 
-  window.BizShiledTheme = {
+  window.BizShieldTheme = {
     apply: applyTheme,
     current: currentTheme
   };
-  window.ExitoTheme = window.BizShiledTheme;
+  window.ExitoTheme = window.BizShieldTheme;
 })();

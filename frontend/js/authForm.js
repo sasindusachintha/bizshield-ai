@@ -42,9 +42,25 @@ function createAuthForm(config) {
             </div>
             <aside class="auth-context">
                 <div class="auth-context-inner">
-                    <i class="fas fa-shield-halved auth-mark"></i>
+                    <div class="auth-mark-wrap">
+                        <i class="fas fa-shield-halved auth-mark"></i>
+                    </div>
                     <h2>Secure your growth workspace</h2>
                     <p>Save promising ideas to your account and return to them when you are ready to analyze, plan, and launch.</p>
+                    <div class="auth-highlights" aria-label="Account benefits">
+                        <div class="auth-highlight">
+                            <i class="fas fa-folder-open"></i>
+                            <span>Saved projects stay linked to your profile</span>
+                        </div>
+                        <div class="auth-highlight">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Ideas, risks, plans, and marketing stay connected</span>
+                        </div>
+                        <div class="auth-highlight">
+                            <i class="fas fa-lock"></i>
+                            <span>Your workspace is ready when you return</span>
+                        </div>
+                    </div>
                 </div>
             </aside>
         </div>

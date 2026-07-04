@@ -6,7 +6,7 @@ const AUTH_USER_KEY = 'bizshieldai-user';
 const LEGACY_TOKEN_KEY = 'token';
 
 /**
- * Call the BizShiled-AI backend API
+ * Call the BizShield-AI backend API
  * @param {string} endpoint  e.g. '/generate-ideas'
  * @param {object} data      request body
  * @returns {Promise<object>} response .data field
@@ -324,6 +324,13 @@ function applyUserPreferences(user) {
     // Store preferences
     if (user.language) localStorage.setItem('bizshieldai-lang', user.language);
     if (user.currency) localStorage.setItem('bizshieldai-currency', user.currency);
+    try {
+        const existing = JSON.parse(localStorage.getItem('bizshieldai-user') || '{}');
+        localStorage.setItem('bizshieldai-user', JSON.stringify({ ...existing, ...user }));
+    } catch (_) {
+        localStorage.setItem('bizshieldai-user', JSON.stringify(user));
+    }
+    document.dispatchEvent(new CustomEvent('bizshield:languageChange', { detail: { language: user.language || 'en' } }));
     // Apply Sinhala translation if selected
     if (user.language === 'si') applySinhalaLabels();
     // Broadcast currency change
@@ -331,17 +338,22 @@ function applyUserPreferences(user) {
 }
 
 function applySinhalaLabels() {
+    if (typeof window.applySinhala === 'function') {
+        window.applySinhala(document.body);
+        return;
+    }
+
     document.querySelectorAll('h2, h5, .nav-link, .card-body h5, .btn, label, p').forEach(el => {
         const text = el.childNodes[0]?.nodeValue?.trim();
-        if (text && SINHALA_LABELS[text]) {
-            el.childNodes[0].nodeValue = SINHALA_LABELS[text] + ' ';
+        if (text && SINHALA_LABELS[text] && typeof window.translateSinhalaValue === 'function') {
+            el.childNodes[0].nodeValue = window.translateSinhalaValue(text) + ' ';
         }
     });
 }
 
 function getCurrentCurrency() {
     const user = getAuthUser();
-    return user?.currency || localStorage.getItem('bizshieldai-currency') || 'USD';
+    return localStorage.getItem('bizshieldai-currency') || user?.currency || 'USD';
 }
 
 function formatCurrency(amount, currencyCode) {

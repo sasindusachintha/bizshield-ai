@@ -17,14 +17,14 @@ const BS_FALLBACK_RATES = {
 function getBSCurrency() {
     try {
         const user = JSON.parse(localStorage.getItem('bizshieldai-user') || 'null');
-        return user?.currency || localStorage.getItem('bizshieldai-currency') || 'USD';
+        return localStorage.getItem('bizshieldai-currency') || user?.currency || 'USD';
     } catch (_) { return 'USD'; }
 }
 
 function getBSLanguage() {
     try {
         const user = JSON.parse(localStorage.getItem('bizshieldai-user') || 'null');
-        return user?.language || localStorage.getItem('bizshieldai-lang') || 'en';
+        return localStorage.getItem('bizshieldai-lang') || user?.language || 'en';
     } catch (_) { return 'en'; }
 }
 
@@ -109,6 +109,7 @@ function convertCostString(rawStr, targetCurrency) {
     if (!rawStr) return rawStr;
     const target = targetCurrency || getBSCurrency();
     const raw = String(rawStr);
+    if (!/\d/.test(raw)) return raw;
     if (target === 'USD') return raw.replace(/\bUSD\b/g, 'USD');
 
     const sym = BS_CURRENCY_SYMBOLS[target] || target;
@@ -155,7 +156,7 @@ const SI_TRANSLATIONS = {
     'Social Media Posts': 'à·ƒà¶¸à·à¶¢ à¶¸à·à¶°à·Šâ€à¶º à¶´à·… à¶šà·’à¶»à·“à¶¸à·Š',
     'Ad Copies': 'à¶¯à·à¶±à·Šà·€à·“à¶¸à·Š à¶´à·’à¶§à¶´à¶­à·Š',
     'Slogans': 'à·ƒà¶§à¶±à·Š à¶´à·à¶¨',
-    'Social Captions': 'à·ƒà¶¸à·à¶¢ à¶¸à·à¶°à·Šâ€à¶º captions',
+    'Social Captions': 'à·ƒà¶¸à·à¶¢ à¶¸à·à¶°à·Šâ€à¶º à·à·“à¶»à·Šà·‚ à¶´à¶',
     'No data available': 'à¶¯à¶­à·Šà¶­ à¶±à·œà¶¸à·à¶­',
     'Log in to save': 'à·ƒà·”à¶»à·à¶šà·“à¶¸à¶§ à¶‡à¶­à·”à¶½à·Š à·€à¶±à·Šà¶±',
     'Saved': 'à·ƒà·”à¶»à·à¶šà·’à¶«à·’',
@@ -199,7 +200,7 @@ const SI_TRANSLATIONS = {
     'Save Outcome to Project': 'à¶´à·Šâ€à¶»à¶­à·’à¶µà¶½à¶º à·€à·Šâ€à¶ºà·à¶´à·˜à¶­à·’à¶ºà¶§ à·ƒà·”à¶»à¶šà·’à¶±à·Šà¶±',
     'Please describe the crisis before convening the boardroom.': 'à¶¸à¶«à·Šà¶©à¶½ à·ƒà·à¶šà¶ à·Šà¶¡à·à·€ à¶†à¶»à¶¸à·Šà¶· à¶šà·’à¶»à·“à¶¸à¶§ à¶´à·™à¶» à¶šà¶»à·”à¶«à·à¶šà¶» à¶…à¶»à·Šà¶¶à·”à¶¯à¶º à·€à·’à·ƒà·Šà¶­à¶» à¶šà¶»à¶±à·Šà¶±.',
     'Please log in to run a boardroom debate.': 'à¶¸à¶«à·Šà¶©à¶½ à·ƒà·à¶šà¶ à·Šà¶¡à·à·€ à¶šà·Šâ€à¶»à·’à¶ºà·à¶­à·Šà¶¸à¶š à¶šà·’à¶»à·“à¶¸à¶§ à¶šà¶»à·”à¶«à·à¶šà¶» à¶‡à¶­à·”à¶½à·Š à·€à¶±à·Šà¶±.',
-    'Run Boardroom Debate': 'à¶»à·à·ƒà·Šà·€à·“à¶¸à·Š à¶’à¶¢ à·€à·à¶¯-à·€à·’à·€à·à¶¯à¶º',
+    'Run Boardroom Debate': 'à¶¸à¶«à·Šà¶©à¶½ à·€à·à¶¯-à·€à·’à·€à·à¶¯à¶º à¶šà·Šâ€à¶»à·’à¶ºà·à¶­à·Šà¶¸à¶š à¶šà¶»à¶±à·Šà¶±',
     'Risk Score': 'à¶…à·€à¶¯à·à¶±à¶¸à·Š à¶½à¶šà·”à¶«à·”',
     'Final Plan': 'à¶…à·€à·ƒà·à¶± à·ƒà·à¶½à·à·ƒà·Šà¶¸',
     'Aligned': 'à¶‘à¶šà¶Ÿà¶­à·à·€ à¶‡à¶­',
@@ -290,9 +291,9 @@ const SI_ATTRIBUTE_TRANSLATIONS = {
 };
 
 const SI_PHRASE_TRANSLATIONS = {
-    'Enter your business idea to get setup steps, a 7-day sprint, and a 30-day milestone roadmap.': 'Setup steps, දින 7 sprint එකක්, සහ දින 30 milestone roadmap එකක් ලබාගැනීමට ඔබේ ව්‍යාපාර අදහස ඇතුළත් කරන්න.',
-    'Generate Instagram posts, ad copies, slogans, and social captions for your business.': 'ඔබේ ව්‍යාපාරය සඳහා social posts, ad copies, slogans, සහ captions ජනනය කරන්න.',
-    'Describe a business crisis. Five AI executives — CEO, Finance, PR, Engineer, Lawyer — will debate it live and reach a final decision.': 'ව්‍යාපාරික අර්බුදයක් විස්තර කරන්න. AI විධායකයින් පහක් — CEO, Finance, PR, Engineer, Lawyer — එය සජීවීව විවාද කර අවසාන තීරණයකට පැමිණේ.',
+    'Enter your business idea to get setup steps, a 7-day sprint, and a 30-day milestone roadmap.': 'සැකසුම් පියවර, දින 7 ක වේගවත් ක්‍රියාත්මක සැලැස්මක්, සහ දින 30 ක ප්‍රධාන ඉලක්ක මාර්ග සිතියමක් ලබාගැනීමට ඔබේ ව්‍යාපාර අදහස ඇතුළත් කරන්න.',
+    'Generate Instagram posts, ad copies, slogans, and social captions for your business.': 'ඔබේ ව්‍යාපාරය සඳහා Instagram පළ කිරීම්, දැන්වීම් පිටපත්, සටන් පාඨ, සහ සමාජ මාධ්‍ය ශීර්ෂ පාඨ ජනනය කරන්න.',
+    'Describe a business crisis. Five AI executives — CEO, Finance, PR, Engineer, Lawyer — will debate it live and reach a final decision.': 'ව්‍යාපාරික අර්බුදයක් විස්තර කරන්න. AI විධායකයින් පහක් — ප්‍රධාන විධායක, මූල්‍ය ප්‍රධානී, මහජන සම්බන්ධතා ප්‍රධානී, ඉංජිනේරු ප්‍රධානී, නීති උපදේශක — එය සජීවීව විවාද කර අවසාන තීරණයකට පැමිණේ.',
     'Enter a business idea to get demand score, competition level, risk profile, and cost estimate.': 'Demand score, competition level, risk profile, සහ cost estimate ලබාගැනීමට ව්‍යාපාර අදහසක් ඇතුළත් කරන්න.',
     'Select the display language for BizShield-AI.': 'BizShield-AI සඳහා පෙන්වන භාෂාව තෝරන්න.',
     'Manage your profile, language, currency, and system preferences.': 'ඔබේ profile, language, currency, සහ system preferences කළමනාකරණය කරන්න.',
@@ -313,6 +314,201 @@ const SI_PHRASE_TRANSLATIONS = {
     'Loading your projects…': 'ඔබේ ව්‍යාපෘති පූරණය වෙමින්...'
 };
 
+const SI_FRAGMENT_TRANSLATIONS = {
+    'Welcome back,': 'ආයුබෝවන්,',
+    'Official Site': 'නිල වෙබ් අඩවිය',
+    'Generate Ideas': 'අදහස් ජනනය කරන්න',
+    'Generate Business Ideas': 'ව්‍යාපාර අදහස් ජනනය කරන්න',
+    'Analyze Idea': 'අදහස විශ්ලේෂණය කරන්න',
+    'Build a Plan': 'සැලැස්මක් සාදන්න',
+    'Marketing Kit': 'අලෙවිකරණ කට්ටලය',
+    'Crisis Mode': 'අර්බුද ආකාරය',
+    'My Projects': 'මගේ ව්‍යාපෘති',
+    'Dashboard': 'උපකරණ පුවරුව',
+    'Settings': 'සැකසුම්',
+    'Login': 'ඇතුළු වන්න',
+    'Register': 'ලියාපදිංචි වන්න',
+    'Logout': 'ඉවත් වන්න',
+    'Tools': 'මෙවලම්',
+    'Ideas': 'අදහස්',
+    'Analysis': 'විශ්ලේෂණය',
+    'Plan': 'සැලැස්ම',
+    'Marketing': 'අලෙවිකරණය',
+    'Start here': 'මෙතැනින් ආරම්භ කරන්න',
+    'Your Skills': 'ඔබේ කුසලතා',
+    'Interest / Niche': 'කැමැත්ත / ක්ෂේත්‍රය',
+    'Available Budget': 'ලබා ගත හැකි අයවැය',
+    'optional': 'විකල්ප',
+    'Leave blank if unknown': 'නොදන්නේ නම් හිස්ව තබන්න',
+    'Skills': 'කුසලතා',
+    'Interest': 'කැමැත්ත',
+    'Budget': 'අයවැය',
+    'Industry': 'කර්මාන්තය',
+    'Stage': 'අවධිය',
+    'Description': 'විස්තරය',
+    'Ideation': 'අදහස් අවධිය',
+    'Validation': 'තහවුරු කිරීම',
+    'Growth': 'වර්ධනය',
+    'Scaling': 'පරිමාණය කිරීම',
+    'Project Title': 'ව්‍යාපෘති මාතෘකාව',
+    'New Project': 'නව ව්‍යාපෘතිය',
+    'Create Project': 'ව්‍යාපෘතිය සාදන්න',
+    'Cancel': 'අවලංගු කරන්න',
+    'Save': 'සුරකින්න',
+    'Save Changes': 'වෙනස්කම් සුරකින්න',
+    'Save Idea': 'අදහස සුරකින්න',
+    'Open Project': 'ව්‍යාපෘතිය විවෘත කරන්න',
+    'Delete Project': 'ව්‍යාපෘතිය මකන්න',
+    'Delete': 'මකන්න',
+    'Loading': 'පූරණය වෙමින්',
+    'Loading...': 'පූරණය වෙමින්...',
+    'Full Name': 'සම්පූර්ණ නම',
+    'Email Address': 'ඊමේල් ලිපිනය',
+    'New Password': 'නව මුරපදය',
+    'Profile': 'පැතිකඩ',
+    'Language': 'භාෂාව',
+    'Currency': 'මුදල් ඒකකය',
+    'System Preferences': 'පද්ධති මනාප',
+    'Dark Mode': 'අඳුරු ආකාරය',
+    'Context Memory': 'සන්දර්භ මතකය',
+    'Preview': 'පෙරදසුන',
+    'English': 'ඉංග්‍රීසි',
+    'Sinhala': 'සිංහල',
+    'Please': 'කරුණාකර',
+    'log in': 'ඇතුළු වන්න',
+    'Sign in': 'ඇතුළු වන්න',
+    'to access settings.': 'සැකසුම් වෙත පිවිසීමට.',
+    'AI generates': 'AI ජනනය කරයි',
+    'business ideas': 'ව්‍යාපාර අදහස්',
+    'tailored to your skills': 'ඔබේ කුසලතා අනුව සකසන ලද',
+    'budget': 'අයවැය',
+    'Get demand score': 'ඉල්ලුම් ලකුණු ලබාගන්න',
+    'competition level': 'තරඟකාරී මට්ටම',
+    'risk': 'අවදානම',
+    'cost breakdown': 'වියදම් විස්තරය',
+    'Setup steps': 'සැකසුම් පියවර',
+    '7-day sprint': 'දින 7 sprint',
+    '30-day milestone roadmap': 'දින 30 milestone roadmap',
+    'Generate posts': 'පළ කිරීම් ජනනය කරන්න',
+    'ad copies': 'දැන්වීම් පිටපත්',
+    'slogans': 'සටන් පාඨ',
+    'social captions': 'සමාජ මාධ්‍ය captions',
+    'Every business idea': 'සෑම ව්‍යාපාර අදහසක්ම',
+    "you've saved": 'ඔබ සුරැකූ',
+    'AI-generated documents': 'AI-ජනනය කළ ලේඛන',
+    'attached to it': 'එයට අමුණා ඇති',
+    'Created': 'සාදන ලදී',
+    'Available documents': 'ලබාගත හැකි ලේඛන',
+    'No documents yet': 'තවම ලේඛන නොමැත',
+    'Industry not set': 'කර්මාන්තය සකසා නැත',
+    'Untitled project': 'නම් නොකළ ව්‍යාපෘතිය',
+    'Untitled idea': 'නම් නොකළ අදහස',
+    'No description provided.': 'විස්තරයක් ලබාදී නැත.',
+    'Why it fits:': 'ඇයි මෙය ගැළපෙන්නේ:',
+    'Cost TBD': 'වියදම තවම තීරණය වී නැත',
+    'Timeline TBD': 'කාලසීමාව තවම තීරණය වී නැත',
+    'Score:': 'ලකුණු:',
+    'Analyse': 'විශ්ලේෂණය කරන්න',
+    'Analyze': 'විශ්ලේෂණය කරන්න',
+    'Saved': 'සුරැකිණි',
+    'Saving': 'සුරකිමින්',
+    'Error:': 'දෝෂය:',
+    'No activity yet.': 'තවම ක්‍රියාකාරකම් නොමැත.',
+    'Recent Activity': 'මෑත ක්‍රියාකාරකම්',
+    'Total Projects': 'මුළු ව්‍යාපෘති',
+    'Total Ideas': 'මුළු අදහස්',
+    'Total Marketing Plans': 'මුළු අලෙවිකරණ සැලසුම්',
+    'Total Marketing': 'මුළු අලෙවිකරණය'
+};
+
+Object.assign(SI_FRAGMENT_TRANSLATIONS, {
+    'Business Analysis': 'ව්‍යාපාර විශ්ලේෂණය',
+    'Business Idea': 'ව්‍යාපාර අදහස',
+    'Your Business Idea': 'ඔබේ ව්‍යාපාර අදහස',
+    'Analyse Idea': 'අදහස විශ්ලේෂණය කරන්න',
+    'Run Analysis': 'විශ්ලේෂණය ක්‍රියාත්මක කරන්න',
+    'Enter a business idea': 'ව්‍යාපාර අදහසක් ඇතුළත් කරන්න',
+    'demand score': 'ඉල්ලුම් ලකුණු',
+    'risk profile': 'අවදානම් පැතිකඩ',
+    'cost estimate': 'වියදම් ඇස්තමේන්තුව',
+    'Market Demand': 'වෙළඳපොළ ඉල්ලුම',
+    'Competition': 'තරඟකාරීත්වය',
+    'Risk Assessment': 'අවදානම් ඇගයීම',
+    'Cost Estimate': 'වියදම් ඇස්තමේන්තුව',
+    'Minimum startup': 'අවම ආරම්භක වියදම',
+    'Recommended': 'නිර්දේශිත',
+    'Breakdown': 'විස්තරය',
+    'Save Analysis': 'විශ්ලේෂණය සුරකින්න',
+    'Analysis Results': 'විශ්ලේෂණ ප්‍රතිඵල',
+    'Build a Launch Plan': 'දියත් කිරීමේ සැලැස්මක් සාදන්න',
+    'Launch Plan': 'දියත් කිරීමේ සැලැස්ම',
+    'Generate Plan': 'සැලැස්ම ජනනය කරන්න',
+    'Your Launch Roadmap': 'ඔබේ දියත් කිරීමේ roadmap',
+    'Quick Wins': 'ඉක්මන් ජයග්‍රහණ',
+    'First Customers Strategy': 'පළමු පාරිභෝගික උපායමාර්ගය',
+    'Risk Mitigation': 'අවදානම් අවම කිරීම',
+    'Critical Success Factors': 'සාර්ථකත්වයට වැදගත් සාධක',
+    'Success Tips': 'සාර්ථකත්ව ඉඟි',
+    'Weekly Progress Tracker': 'සතිපතා ප්‍රගති ලුහුබැඳීම',
+    '30-Day Milestones': 'දින 30 milestones',
+    '7-Day Sprint': 'දින 7 sprint',
+    'Save Plan': 'සැලැස්ම සුරකින්න',
+    'Enter your business idea': 'ඔබේ ව්‍යාපාර අදහස ඇතුළත් කරන්න',
+    'a 7-day sprint': 'දින 7 sprint එකක්',
+    'a 30-day milestone roadmap': 'දින 30 milestone roadmap එකක්',
+    'Marketing Kit': 'අලෙවිකරණ කට්ටලය',
+    'Generate Marketing Kit': 'අලෙවිකරණ කට්ටලය ජනනය කරන්න',
+    'Your Marketing Kit': 'ඔබේ අලෙවිකරණ කට්ටලය',
+    'Save Marketing': 'අලෙවිකරණය සුරකින්න',
+    'Social Media Posts': 'සමාජ මාධ්‍ය පළ කිරීම්',
+    'Ad Copies': 'දැන්වීම් පිටපත්',
+    'Slogans': 'සටන් පාඨ',
+    'Social Captions': 'සමාජ මාධ්‍ය captions',
+    'Instagram posts': 'Instagram පළ කිරීම්',
+    'for your business': 'ඔබේ ව්‍යාපාරය සඳහා',
+    'Copy': 'පිටපත් කරන්න',
+    'Copied': 'පිටපත් විය',
+    'No data available': 'දත්ත නොමැත',
+    'Log in to save': 'සුරැකීමට ඇතුළු වන්න',
+    'Project Workspace': 'ව්‍යාපෘති වැඩබිම',
+    'Back to My Projects': 'මගේ ව්‍යාපෘති වෙත ආපසු',
+    'Document': 'ලේඛනය',
+    'Documents': 'ලේඛන',
+    'Favorite': 'ප්‍රියතම',
+    'Tags': 'ටැග්',
+    'Crisis under review': 'සමාලෝචනය වන අර්බුදය',
+    'Live Debate Panel': 'සජීවී විවාද මණ්ඩලය',
+    'Final Decision': 'අවසාන තීරණය',
+    'Problem analysis:': 'ගැටලු විශ්ලේෂණය:',
+    'Solution:': 'විසඳුම:',
+    'Final Weighted Risk Score': 'අවසාන බරිත අවදානම් ලකුණු',
+    "CEO's Closing Statement": 'CEOගේ අවසාන ප්‍රකාශය',
+    'Recovery Plan': 'ප්‍රතිසාධන සැලැස්ම',
+    'Immediate actions': 'ක්ෂණික ක්‍රියාමාර්ග',
+    'Short-term actions': 'කෙටි කාලීන ක්‍රියාමාර්ග',
+    'Long-term strategy': 'දිගු කාලීන උපායමාර්ගය',
+    'Save Outcome to Project': 'ප්‍රතිඵලය ව්‍යාපෘතියට සුරකින්න',
+    'View in Project': 'ව්‍යාපෘතිය තුළ බලන්න',
+    'Agrees': 'එකඟයි',
+    'Disagrees': 'එකඟ නැත',
+    'Neutral': 'මධ්‍යස්ථ',
+    'Risk': 'අවදානම',
+    'Aligned': 'එකඟතාව ඇත',
+    'HIGH CONFLICT': 'ඉහළ මතභේදය',
+    'HIGH CONFLICT detected': 'ඉහළ මතභේදයක් හඳුනාගෙන ඇත',
+    'Convene the Boardroom': 'මණ්ඩල සාකච්ඡාව ආරම්භ කරන්න',
+    'Run Boardroom Debate': 'මණ්ඩල විවාදය ක්‍රියාත්මක කරන්න',
+    'Describe the crisis': 'අර්බුදය විස්තර කරන්න',
+    'Log in to BizShield AI': 'BizShield AI වෙත ඇතුළු වන්න',
+    'Create your BizShield AI account': 'ඔබේ BizShield AI ගිණුම සාදන්න',
+    'New to BizShield AI?': 'BizShield AI වෙත අලුත්ද?',
+    'Already have an account?': 'දැනටමත් ගිණුමක් තිබේද?',
+    'Password': 'මුරපදය',
+    'Create account': 'ගිණුම සාදන්න',
+    'Account created': 'ගිණුම සාදන ලදී',
+    'Welcome': 'සාදරයෙන් පිළිගනිමු'
+});
+
 
 Object.assign(SI_PHRASE_TRANSLATIONS, {
     "Tell us about your skills and interests — we'll generate 5 tailored startup ideas.": "ඔබේ කුසලතා සහ කැමැත්ත ගැන කියන්න — අපි ඔබට ගැළපෙන startup අදහස් 5ක් ජනනය කරන්නෙමු.",
@@ -321,6 +517,143 @@ Object.assign(SI_PHRASE_TRANSLATIONS, {
     "Enter your business idea": "ඔබේ ව්‍යාපාර අදහස ඇතුළත් කරන්න",
     "Describe your business idea": "ඔබේ ව්‍යාපාර අදහස විස්තර කරන්න",
     "Tell us about your skills and interests": "ඔබේ කුසලතා සහ කැමැත්ත ගැන කියන්න"
+});
+
+Object.assign(SI_TRANSLATIONS, {
+    'What We Offer': 'අපි ලබාදෙන දේ',
+    'Get Started': 'ආරම්භ කරන්න',
+    'Ready to start?': 'ආරම්භ කිරීමට සූදානම්ද?',
+    'Idea Generation': 'අදහස් ජනනය',
+    'Business Analysis': 'ව්‍යාපාර විශ්ලේෂණය',
+    'Analyses Run': 'ක්‍රියාත්මක කළ විශ්ලේෂණ',
+    'Avg Rating': 'සාමාන්‍ය ඇගයීම',
+    'Project History': 'ව්‍යාපෘති ඉතිහාසය',
+    'Open Project': 'ව්‍යාපෘතිය විවෘත කරන්න',
+    'Delete Project': 'ව්‍යාපෘතිය මකන්න',
+    'Create Project': 'ව්‍යාපෘතිය සාදන්න',
+    'Project Workspace': 'ව්‍යාපෘති වැඩබිම',
+    'Documents': 'ලේඛන',
+    'Idea': 'අදහස',
+    'Market Analysis': 'වෙළඳපොළ විශ්ලේෂණය',
+    'SWOT': 'SWOT',
+    'Marketing Plan': 'අලෙවිකරණ සැලැස්ම',
+    'Financial Forecast': 'මූල්‍ය පුරෝකථනය',
+    'Pitch Deck': 'Pitch Deck',
+    'Unknown date': 'දිනය නොදනී',
+    'Industry not set': 'කර්මාන්තය සකසා නැත',
+    'Created': 'සාදන ලදී',
+    'Available documents': 'ලබාගත හැකි ලේඛන',
+    'No documents yet': 'තවම ලේඛන නොමැත',
+    'No documents yet.': 'තවම ලේඛන නොමැත.',
+    'Choose an existing project': 'පවතින ව්‍යාපෘතියක් තෝරන්න',
+    'New project title': 'නව ව්‍යාපෘති මාතෘකාව',
+    'Close': 'වසන්න',
+    'Copy': 'පිටපත් කරන්න',
+    'Copied': 'පිටපත් විය',
+    'Save cancelled.': 'සුරැකීම අවලංගු විය.',
+    'Failed to create project.': 'ව්‍යාපෘතිය සෑදීමට නොහැකි විය.',
+    'Choose an existing project or enter a title for a new one.': 'පවතින ව්‍යාපෘතියක් තෝරන්න හෝ නව එකකට මාතෘකාවක් ඇතුළත් කරන්න.',
+    'Saving...': 'සුරකිමින්...',
+    'Save failed': 'සුරැකීම අසාර්ථක විය',
+    'Settings saved successfully!': 'සැකසුම් සාර්ථකව සුරැකිණි!',
+    'Preferences saved locally.': 'මනාප දේශීයව සුරැකිණි.',
+    'Please': 'කරුණාකර',
+    'to access settings.': 'සැකසුම් වෙත පිවිසීමට.',
+    'User': 'පරිශීලක',
+    'Toggle between dark and light theme': 'අඳුරු සහ ආලෝක තේමාව අතර මාරු වන්න',
+    'AI uses your project history to enrich responses': 'AI පිළිතුරු වැඩිදියුණු කිරීමට ඔබේ ව්‍යාපෘති ඉතිහාසය භාවිත කරයි',
+    'Preview': 'පෙරදසුන',
+    'English': 'ඉංග්‍රීසි',
+    'Sinhala': 'සිංහල',
+    'Name, email, and password are required': 'නම, ඊමේල් ලිපිනය, සහ මුරපදය අවශ්‍ය වේ',
+    'Email and password are required': 'ඊමේල් ලිපිනය සහ මුරපදය අවශ්‍ය වේ',
+    'Invalid email or password': 'ඊමේල් ලිපිනය හෝ මුරපදය වැරදිය',
+    'Please log in to continue.': 'ඉදිරියට යාමට කරුණාකර ඇතුළු වන්න.',
+    'Not authorized. Please log in.': 'අවසර නොමැත. කරුණාකර ඇතුළු වන්න.',
+    'Not authorized. Token is invalid or expired.': 'අවසර නොමැත. ටෝකනය වැරදිය හෝ කල් ඉකුත් වී ඇත.',
+    'Project title is required': 'ව්‍යාපෘති මාතෘකාව අවශ්‍ය වේ',
+    'Idea title and description are required': 'අදහස් මාතෘකාව සහ විස්තරය අවශ්‍ය වේ',
+    'Could not save idea': 'අදහස සුරැකීමට නොහැකි විය',
+    'Could not create project': 'ව්‍යාපෘතිය සෑදීමට නොහැකි විය',
+    'Could not load projects': 'ව්‍යාපෘති පූරණය කිරීමට නොහැකි විය',
+    'Could not load project': 'ව්‍යාපෘතිය පූරණය කිරීමට නොහැකි විය',
+    'Could not delete project': 'ව්‍යාපෘතිය මැකීමට නොහැකි විය',
+    'Failed to delete project.': 'ව්‍යාපෘතිය මැකීමට අසාර්ථක විය.',
+    'Failed to delete document.': 'ලේඛනය මැකීමට අසාර්ථක විය.'
+});
+
+Object.assign(SI_PHRASE_TRANSLATIONS, {
+    'Transform your business vision into reality.': 'ඔබේ ව්‍යාපාර දැක්ම සැබෑ කරගන්න.',
+    'BizShiled-AI is a full-stack platform that helps you discover market opportunities, build an MVP, and scale with data-driven insights.': 'BizShield-AI වෙළඳපොළ අවස්ථා හඳුනාගැනීමට, MVP එකක් ගොඩනැගීමට, සහ දත්ත මත පදනම් වූ අවබෝධයෙන් වර්ධනය වීමට උදව් කරන සම්පූර්ණ ව්‍යාපාර වේදිකාවකි.',
+    'BizShield-AI is a full-stack platform that helps you discover market opportunities, build an MVP, and scale with data-driven insights.': 'BizShield-AI වෙළඳපොළ අවස්ථා හඳුනාගැනීමට, MVP එකක් ගොඩනැගීමට, සහ දත්ත මත පදනම් වූ අවබෝධයෙන් වර්ධනය වීමට උදව් කරන සම්පූර්ණ ව්‍යාපාර වේදිකාවකි.',
+    'AI-driven tools generate 5 personalized business ideas based on your skills, budget, and interests.': 'ඔබේ කුසලතා, අයවැය, සහ කැමැත්ත මත පදනම්ව AI මෙවලම් පුද්ගලික ව්‍යාපාර අදහස් 5ක් ජනනය කරයි.',
+    'Deep-dive into market demand, competition level, risk profile, and startup cost estimates.': 'වෙළඳපොළ ඉල්ලුම, තරඟකාරී මට්ටම, අවදානම් පැතිකඩ, සහ ආරම්භක වියදම් ඇස්තමේන්තු ගැඹුරින් විශ්ලේෂණය කරන්න.',
+    'Get a full roadmap — setup steps, 7-day sprints, and 30-day milestone plans to launch fast.': 'වේගයෙන් දියත් කිරීමට setup steps, දින 7 sprint, සහ දින 30 milestone සැලසුම් සහිත සම්පූර්ණ roadmap එකක් ලබාගන්න.',
+    'Generate Instagram posts, ad copies, slogans, and social captions with one click.': 'එක් click එකකින් Instagram posts, ad copies, slogans, සහ social captions ජනනය කරන්න.',
+    "You don't have any projects yet. Create one to save this content.": 'ඔබට තවම ව්‍යාපෘති නොමැත. මෙම අන්තර්ගතය සුරැකීමට එකක් සාදන්න.',
+    'or create a new project': 'හෝ නව ව්‍යාපෘතියක් සාදන්න',
+    '— or create a new project —': '— හෝ නව ව්‍යාපෘතියක් සාදන්න —',
+    'No projects yet': 'තවම ව්‍යාපෘති නොමැත',
+    'Save an idea from Growth Mode, or create a new project to start a workspace.': 'Growth Mode වෙතින් අදහසක් සුරකින්න, නැතහොත් වැඩබිමක් ආරම්භ කිරීමට නව ව්‍යාපෘතියක් සාදන්න.',
+    'Still loading your projects. If this continues, check your connection or try again.': 'ඔබේ ව්‍යාපෘති තවම පූරණය වෙමින් පවතී. මෙය දිගටම පවතී නම් සම්බන්ධතාවය පරීක්ෂා කරන්න හෝ නැවත උත්සාහ කරන්න.',
+    'Project title is required.': 'ව්‍යාපෘති මාතෘකාව අවශ්‍ය වේ.',
+    'Failed to load projects.': 'ව්‍යාපෘති පූරණය කිරීමට අසාර්ථක විය.',
+    'Delete': 'මකන්න',
+    'Deleting': 'මකමින්...',
+    'Creating...': 'සාදමින්...',
+    'Your 5 Business Ideas': 'ඔබේ ව්‍යාපාර අදහස් 5',
+    'Please fill in both': 'කරුණාකර දෙකම පුරවන්න:',
+    'fields.': 'ක්ෂේත්‍ර.',
+    'Generating...': 'ජනනය වෙමින්...',
+    'AI is crafting your personalised business ideas…': 'AI ඔබට ගැළපෙන ව්‍යාපාර අදහස් සකසමින් පවතී...',
+    'No ideas returned. Please try again.': 'අදහස් ලැබුණේ නැත. කරුණාකර නැවත උත්සාහ කරන්න.',
+    'Timeline TBD': 'කාලසීමාව තවම තීරණය වී නැත',
+    'Untitled idea': 'නම් නොකළ අදහස',
+    'No description provided.': 'විස්තරයක් ලබාදී නැත.',
+    'Why it fits:': 'ඇයි මෙය ගැළපෙන්නේ:',
+    'No fit explanation provided.': 'ගැළපීම පිළිබඳ විස්තරයක් ලබාදී නැත.',
+    'Cost TBD': 'වියදම තවම තීරණය වී නැත',
+    'Score:': 'ලකුණු:',
+    'Save Idea': 'අදහස සුරකින්න',
+    'Analyse': 'විශ්ලේෂණය කරන්න',
+    'Click': 'ක්ලික් කරන්න',
+    'on any card to get a deep-dive on that idea.': 'ඒ අදහස ගැන ගැඹුරු විශ්ලේෂණයක් ලබාගැනීමට ඕනෑම කාඩ්පතක.',
+    'Use': 'භාවිත කරන්න',
+    'to keep the best options in your account.': 'හොඳම විකල්ප ඔබේ ගිණුමේ තබාගැනීමට.',
+    'Log in to save ideas to your account.': 'ඔබේ ගිණුමට අදහස් සුරැකීමට ඇතුළු වන්න.',
+    'Saved to your account.': 'ඔබේ ගිණුමට සුරැකිණි.',
+    'Sign in to see your project statistics.': 'ඔබේ ව්‍යාපෘති සංඛ්‍යාලේඛන බැලීමට ඇතුළු වන්න.',
+    'Log in to see your project statistics and recent activity.': 'ඔබේ ව්‍යාපෘති සංඛ්‍යාලේඛන සහ මෑත ක්‍රියාකාරකම් බැලීමට ඇතුළු වන්න.',
+    'No activity yet. Generate and save your first idea to get started.': 'තවම ක්‍රියාකාරකම් නොමැත. ආරම්භ කිරීමට ඔබේ පළමු අදහස ජනනය කර සුරකින්න.',
+    'was': 'විය',
+    'in project:': 'ව්‍යාපෘතිය තුළ:',
+    'created': 'සාදන ලදී',
+    'updated': 'යාවත්කාලීන කරන ලදී',
+    'deleted': 'මකා දමන ලදී',
+    'project': 'ව්‍යාපෘතිය',
+    'market analysis': 'වෙළඳපොළ විශ්ලේෂණය',
+    'marketing plan': 'අලෙවිකරණ සැලැස්ම',
+    'business model': 'ව්‍යාපාර සැලැස්ම',
+    'financial forecast': 'මූල්‍ය පුරෝකථනය',
+    'risk assessment': 'අවදානම් ඇගයීම',
+    'pitch deck': 'Pitch Deck',
+    'AI Feasibility Score': 'AI ශක්‍යතා ලකුණු',
+    'AI Insights': 'AI අවබෝධ',
+    'AI Ranking': 'AI ශ්‍රේණිගත කිරීම',
+    'No AI result widgets are available yet.': 'තවම AI ප්‍රතිඵල widgets නොමැත.',
+    'The backend response did not include feasibility, insights, or ranking data.': 'Backend ප්‍රතිචාරයේ ශක්‍යතාව, අවබෝධ, හෝ ශ්‍රේණිගත දත්ත ඇතුළත් නොවීය.',
+    'No additional insights were available.': 'අමතර අවබෝධ නොලැබුණි.',
+    'Rank': 'ශ්‍රේණිය',
+    'Showing top 5 of': 'ඉහළ 5 පෙන්වයි, මුළු ගණන:',
+    'Unable to load the latest AI analysis result.': 'නවතම AI විශ්ලේෂණ ප්‍රතිඵලය පූරණය කළ නොහැක.',
+    'Please log in to access settings.': 'සැකසුම් වෙත පිවිසීමට කරුණාකර ඇතුළු වන්න.',
+    'Leave blank to keep current': 'දැනට ඇති එක තබාගැනීමට හිස්ව තබන්න',
+    'New Password (leave blank to keep current)': 'නව මුරපදය (දැනට ඇති එක තබාගැනීමට හිස්ව තබන්න)',
+    '$1,500 USD will display as': 'USD $1,500 මෙසේ පෙන්වනු ඇත',
+    'using the latest cached exchange rate': 'නවතම cache කළ විනිමය අනුපාතය භාවිත කරමින්',
+    'Select the display language for BizShield-AI.': 'BizShield-AI සඳහා පෙන්වන භාෂාව තෝරන්න.',
+    'Manage your profile, language, currency, and system preferences.': 'ඔබේ පැතිකඩ, භාෂාව, මුදල් ඒකකය, සහ පද්ධති මනාප කළමනාකරණය කරන්න.',
+    'All financial outputs, dashboards, and reports will reflect this currency.': 'සියලුම මූල්‍ය ප්‍රතිදාන, උපකරණ පුවරු, සහ වාර්තා මෙම මුදල් ඒකකයෙන් පෙන්වනු ඇත.'
 });
 function repairSinhalaMojibake(value) {
     const text = String(value ?? '');
@@ -353,14 +686,79 @@ function normalizeBSText(value) {
     return String(value || '').replace(/\s+/g, ' ').trim();
 }
 
+function translateSinhalaFragments(value) {
+    let output = String(value ?? '');
+    const entries = Object.entries(SI_FRAGMENT_TRANSLATIONS)
+        .sort((a, b) => b[0].length - a[0].length);
+
+    for (const [source, target] of entries) {
+        const repairedSource = repairSinhalaMojibake(source);
+        output = output.split(source).join(repairSinhalaMojibake(target));
+        if (repairedSource !== source) {
+            output = output.split(repairedSource).join(repairSinhalaMojibake(target));
+        }
+    }
+
+    return output !== String(value ?? '') ? output : '';
+}
+
 function translateSinhalaValue(value) {
     const raw = String(value ?? '');
     const trimmed = normalizeBSText(raw);
     if (!trimmed) return '';
+    const repaired = normalizeBSText(repairSinhalaMojibake(trimmed));
     if (SI_TRANSLATIONS[trimmed]) return repairSinhalaMojibake(SI_TRANSLATIONS[trimmed]);
     if (SI_ATTRIBUTE_TRANSLATIONS[trimmed]) return repairSinhalaMojibake(SI_ATTRIBUTE_TRANSLATIONS[trimmed]);
     if (SI_PHRASE_TRANSLATIONS[trimmed]) return repairSinhalaMojibake(SI_PHRASE_TRANSLATIONS[trimmed]);
-    return '';
+    if (repaired !== trimmed) {
+        if (SI_TRANSLATIONS[repaired]) return repairSinhalaMojibake(SI_TRANSLATIONS[repaired]);
+        if (SI_ATTRIBUTE_TRANSLATIONS[repaired]) return repairSinhalaMojibake(SI_ATTRIBUTE_TRANSLATIONS[repaired]);
+        if (SI_PHRASE_TRANSLATIONS[repaired]) return repairSinhalaMojibake(SI_PHRASE_TRANSLATIONS[repaired]);
+    }
+    return translateSinhalaFragments(trimmed);
+}
+
+const bsOriginalTextNodes = new WeakMap();
+const bsOriginalAttributes = new WeakMap();
+let bsOriginalTitle = null;
+
+function getOriginalAttributeMap(el) {
+    let attrs = bsOriginalAttributes.get(el);
+    if (!attrs) {
+        attrs = {};
+        bsOriginalAttributes.set(el, attrs);
+    }
+    return attrs;
+}
+
+function restoreEnglish(root = document.body) {
+    if (!root) return;
+    const scope = root.nodeType === Node.ELEMENT_NODE ? root : document.body;
+    if (root.nodeType === Node.TEXT_NODE) {
+        if (bsOriginalTextNodes.has(root)) root.nodeValue = bsOriginalTextNodes.get(root);
+        return;
+    }
+
+    const walker = document.createTreeWalker(scope, NodeFilter.SHOW_TEXT);
+    const nodesToRestore = [];
+    while (walker.nextNode()) nodesToRestore.push(walker.currentNode);
+    nodesToRestore.forEach(node => {
+        if (bsOriginalTextNodes.has(node)) node.nodeValue = bsOriginalTextNodes.get(node);
+    });
+
+    const candidates = [];
+    if (scope.matches?.('[placeholder], [title], [aria-label]')) candidates.push(scope);
+    scope.querySelectorAll?.('[placeholder], [title], [aria-label]').forEach(el => candidates.push(el));
+    candidates.forEach(el => {
+        const attrs = bsOriginalAttributes.get(el);
+        if (!attrs) return;
+        Object.keys(attrs).forEach(attr => {
+            if (attrs[attr] == null) el.removeAttribute(attr);
+            else el.setAttribute(attr, attrs[attr]);
+        });
+    });
+
+    if (bsOriginalTitle) document.title = bsOriginalTitle;
 }
 
 function applySinhalaAttributes(root = document.body) {
@@ -372,17 +770,27 @@ function applySinhalaAttributes(root = document.body) {
     candidates.forEach(el => {
         ['placeholder', 'title', 'aria-label'].forEach(attr => {
             if (!el.hasAttribute(attr)) return;
-            const translated = translateSinhalaValue(el.getAttribute(attr));
+            const attrs = getOriginalAttributeMap(el);
+            if (!Object.prototype.hasOwnProperty.call(attrs, attr)) attrs[attr] = el.getAttribute(attr);
+            const translated = translateSinhalaValue(attrs[attr]);
             if (translated) el.setAttribute(attr, translated);
         });
     });
-    const titleTranslated = translateSinhalaValue(document.title.replace(/^BizShiled-AI\s*[–-]\s*/i, '').trim());
-    if (titleTranslated) document.title = `BizShiled-AI - ${titleTranslated}`;
+    if (!bsOriginalTitle) bsOriginalTitle = document.title;
+    const titleTranslated = translateSinhalaValue(bsOriginalTitle.replace(/^BizShi(?:eld|led)-AI\s*[–-]\s*/i, '').trim());
+    if (titleTranslated) document.title = `BizShield-AI - ${titleTranslated}`;
 }/**
  * Apply Sinhala translations to the current page.
  * Only translates text nodes â€” never touches attributes or scripts.
  */
 function applySinhala(root = document.body) {
+    if (!root) return;
+    if (root.nodeType === Node.TEXT_NODE) {
+        translateSinhalaTextNode(root);
+        applySinhalaAttributes(document.body);
+        return;
+    }
+
     const walker = document.createTreeWalker(
         root || document.body,
         NodeFilter.SHOW_TEXT,
@@ -400,21 +808,63 @@ function applySinhala(root = document.body) {
     );
 
     const nodesToUpdate = [];
-    while (walker.nextNode()) {
-        const text = walker.currentNode.nodeValue.trim();
-        const translated = translateSinhalaValue(text);
-        if (translated) {
-            nodesToUpdate.push({ node: walker.currentNode, translated });
-        }
-    }
-    nodesToUpdate.forEach(({ node, translated }) => {
-        // Preserve leading/trailing whitespace
-        const orig = node.nodeValue;
-        const leading = orig.match(/^\s*/)[0];
-        const trailing = orig.match(/\s*$/)[0];
-        node.nodeValue = leading + translated + trailing;
-    });
+    while (walker.nextNode()) nodesToUpdate.push(walker.currentNode);
+    nodesToUpdate.forEach(translateSinhalaTextNode);
     applySinhalaAttributes(root || document.body);
+}
+
+function translateSinhalaTextNode(node) {
+    if (!bsOriginalTextNodes.has(node)) bsOriginalTextNodes.set(node, node.nodeValue);
+    const orig = bsOriginalTextNodes.get(node);
+    const text = orig.trim();
+    const translated = translateSinhalaValue(text);
+    if (!translated || translated === text) return;
+
+    const leading = orig.match(/^\s*/)[0];
+    const trailing = orig.match(/\s*$/)[0];
+    node.nodeValue = leading + translated + trailing;
+}
+
+let bsSinhalaObserver = null;
+let bsSinhalaObserverBusy = false;
+
+function enableSinhalaObserver() {
+    if (bsSinhalaObserver || !document.body) return;
+    bsSinhalaObserver = new MutationObserver((mutations) => {
+        if (bsSinhalaObserverBusy || getBSLanguage() !== 'si') return;
+        bsSinhalaObserverBusy = true;
+        requestAnimationFrame(() => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === 'characterData') {
+                    applySinhala(mutation.target);
+                    return;
+                }
+                if (mutation.type === 'attributes') {
+                    applySinhalaAttributes(mutation.target);
+                    return;
+                }
+                mutation.addedNodes.forEach((node) => {
+                    if (node.nodeType === Node.ELEMENT_NODE || node.nodeType === Node.TEXT_NODE) {
+                        applySinhala(node);
+                    }
+                });
+            });
+            bsSinhalaObserverBusy = false;
+        });
+    });
+    bsSinhalaObserver.observe(document.body, {
+        childList: true,
+        subtree: true,
+        characterData: true,
+        attributes: true,
+        attributeFilter: ['placeholder', 'title', 'aria-label']
+    });
+}
+
+function disableSinhalaObserver() {
+    if (!bsSinhalaObserver) return;
+    bsSinhalaObserver.disconnect();
+    bsSinhalaObserver = null;
 }
 
 // â”€â”€ Apply on DOM ready â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -443,13 +893,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // â‘¡ Apply Sinhala if selected
     if (lang === 'si') {
         applySinhala();
-        // Watch for dynamic content (dashboard stats, activity feed)
-        const obs = new MutationObserver((mutations) => {
-            mutations.forEach(m => m.addedNodes.forEach(node => {
-                if (node.nodeType === Node.ELEMENT_NODE) applySinhala(node);
-            }));
-        });
-        obs.observe(document.body, { childList: true, subtree: true });
+        enableSinhalaObserver();
+    } else {
+        disableSinhalaObserver();
     }
 
     // â‘¢ Patch all cost/currency strings rendered in the DOM after AI responses load
@@ -477,7 +923,13 @@ document.addEventListener('bizshield:currencyChange', (event) => {
 document.addEventListener('bizshield:languageChange', (event) => {
     const lang = event.detail?.language || getBSLanguage();
     applyLanguageFontState(lang);
-    if (lang === 'si') applySinhala();
+    if (lang === 'si') {
+        applySinhala();
+        enableSinhalaObserver();
+    } else {
+        disableSinhalaObserver();
+        restoreEnglish();
+    }
 });
 
 document.addEventListener('bizshield:ratesReady', () => {
@@ -493,8 +945,10 @@ function patchCurrencyInElement(el, currency) {
     if (!el || currency === 'USD') return;
     const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, {
         acceptNode(node) {
-            const tag = node.parentElement?.tagName;
+            const parent = node.parentElement;
+            const tag = parent?.tagName;
             if (['SCRIPT', 'STYLE', 'TEXTAREA', 'INPUT'].includes(tag)) return NodeFilter.FILTER_REJECT;
+            if (parent?.closest?.('.currency-btn, [data-no-currency-convert]')) return NodeFilter.FILTER_REJECT;
             if (node.nodeValue.includes('$') || /\bUSD\b/i.test(node.nodeValue)) return NodeFilter.FILTER_ACCEPT;
             return NodeFilter.FILTER_REJECT;
         }
@@ -513,10 +967,10 @@ window.getBSCurrency = getBSCurrency;
 window.getBSLanguage = getBSLanguage;
 window.applyLanguageFontState = applyLanguageFontState;
 window.bsT = bsT;
+window.applySinhala = applySinhala;
+window.restoreEnglish = restoreEnglish;
+window.translateSinhalaValue = translateSinhalaValue;
 window.getBSExchangeRate = getBSExchangeRate;
 window.refreshBSExchangeRates = refreshBSExchangeRates;
 window.convertCostString = convertCostString;
 window.patchCurrencyInElement = patchCurrencyInElement;
-
-
-

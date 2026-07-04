@@ -7,6 +7,8 @@
   <style id="theme-preload">
     html { color-scheme: dark; background: #101923; }
     body { margin: 0; background: #101923; color: #f4fbfa; }
+    html[data-theme="light"] { color-scheme: light; background: #edf4ef; }
+    html[data-theme="light"] body { background: #edf4ef; color: #10202a; }
   </style>
   <script>
     (function () {
@@ -25,52 +27,54 @@
   <script src="../js/theme.js" defer></script>
   <style>
     .settings-card {
-      background: #1b2a36;
-      border: 1px solid #466175;
+      background: var(--surface-glass);
+      border: 1px solid var(--line);
       border-radius: 12px;
       margin-bottom: 1.5rem;
+      box-shadow: var(--shadow);
+      color: var(--text);
     }
     .settings-section-title {
       font-size: 0.75rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      color: #2dd4bf;
+      color: var(--primary);
       margin-bottom: 1rem;
     }
     .pref-btn {
-      border: 1px solid #466175;
+      border: 1px solid var(--line);
       background: transparent;
-      color: #b8c8d3;
+      color: var(--muted);
       border-radius: 8px;
       padding: 0.5rem 1.1rem;
       font-size: 0.9rem;
       cursor: pointer;
       transition: all 0.2s;
     }
-    .pref-btn:hover { border-color: #2dd4bf; color: #2dd4bf; }
-    .pref-btn.active { background: #2dd4bf; color: #0b1118; border-color: #2dd4bf; font-weight: 600; }
+    .pref-btn:hover { border-color: var(--primary); color: var(--primary); }
+    .pref-btn.active { background: var(--primary); color: white; border-color: var(--primary); font-weight: 600; }
     .currency-btn {
-      border: 1px solid #466175;
+      border: 1px solid var(--line);
       background: transparent;
-      color: #b8c8d3;
+      color: var(--muted);
       border-radius: 8px;
       padding: 0.45rem 0.9rem;
       font-size: 0.88rem;
       cursor: pointer;
       transition: all 0.2s;
     }
-    .currency-btn:hover { border-color: #fb923c; color: #fb923c; }
-    .currency-btn.active { background: #fb923c; color: #0b1118; border-color: #fb923c; font-weight: 600; }
+    .currency-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .currency-btn.active { background: var(--accent); color: white; border-color: var(--accent); font-weight: 600; }
     .form-control {
-      background: #101a23;
-      border: 1px solid #41596c;
-      color: #f4fbfa;
+      background: var(--input-bg);
+      border: 1px solid var(--input-border);
+      color: var(--text);
       border-radius: 8px;
     }
-    .form-control:focus { background: #101a23; border-color: #2dd4bf; color: #f4fbfa; box-shadow: 0 0 0 3px rgba(45,212,191,0.15); }
+    .form-control:focus { background: var(--input-bg); border-color: var(--primary); color: var(--text); box-shadow: 0 0 0 3px var(--focus-ring); }
     .btn-save {
-      background: linear-gradient(135deg, #0f766e, #0d5f59);
+      background: linear-gradient(135deg, var(--primary), var(--primary-strong));
       color: white;
       border: none;
       padding: 0.65rem 2rem;
@@ -78,7 +82,7 @@
       font-weight: 600;
       transition: all 0.2s;
     }
-    .btn-save:hover { background: linear-gradient(135deg, #2dd4bf, #0f766e); color: white; transform: translateY(-1px); }
+    .btn-save:hover { background: linear-gradient(135deg, var(--accent), var(--primary)); color: white; transform: translateY(-1px); }
     .avatar-circle {
       width: 72px; height: 72px;
       border-radius: 50%;
@@ -87,13 +91,14 @@
       font-size: 1.8rem; font-weight: 700; color: white;
     }
     .danger-zone { border-color: rgba(248,113,113,0.35) !important; }
-    .danger-zone .settings-section-title { color: #f87171; }
+    .danger-zone .settings-section-title { color: var(--danger); }
     #settings-toast {
       position: fixed; bottom: 2rem; right: 2rem;
       z-index: 9999;
       min-width: 240px;
     }
-    label.form-label { color: #b8c8d3; font-size: 0.875rem; font-weight: 500; }
+    label.form-label { color: var(--muted); font-size: 0.875rem; font-weight: 500; }
+    #lang-preview { background: var(--primary-soft) !important; }
   </style>
 </head>
 
@@ -249,6 +254,13 @@
   <script>
     let selectedLang = 'en';
     let selectedCurrency = 'USD';
+    const CURRENCY_LABELS = {
+      USD: 'US USD $',
+      LKR: 'LK LKR Rs',
+      EUR: 'EU EUR €',
+      GBP: 'GB GBP £',
+      INR: 'IN INR ₹'
+    };
 
     const LANG_SAMPLES = {
       en: 'Dashboard · My Projects · Crisis Mode · Settings · Generate Ideas',
@@ -326,6 +338,7 @@
 
     function highlightCurrency() {
       document.querySelectorAll('.currency-btn').forEach(b => {
+        b.textContent = CURRENCY_LABELS[b.dataset.currency] || b.dataset.currency;
         b.classList.toggle('active', b.dataset.currency === selectedCurrency);
       });
     }
@@ -340,6 +353,24 @@
         : '';
       document.getElementById('currency-example').textContent =
         `$1,500 USD will display as ${sample}${rateText}.`;
+    }
+
+    function applySettingsTheme(isDark) {
+      const theme = isDark ? 'dark' : 'light';
+      if (window.BizShieldTheme?.apply) {
+        window.BizShieldTheme.apply(theme);
+      } else {
+        localStorage.setItem('bizshieldai-theme', theme);
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+      }
+    }
+
+    function initThemeSwitch() {
+      const toggle = document.getElementById('theme-toggle');
+      if (!toggle) return;
+      toggle.checked = ((window.BizShieldTheme?.current && window.BizShieldTheme.current()) || document.documentElement.dataset.theme || 'dark') === 'dark';
+      toggle.addEventListener('change', () => applySettingsTheme(toggle.checked));
     }
 
     document.addEventListener('bizshield:ratesReady', updateCurrencyExample);
@@ -362,13 +393,18 @@
 
       // Save theme & memory preferences locally
       const isDark = document.getElementById('theme-toggle').checked;
-      localStorage.setItem('bizshieldai-theme', isDark ? 'dark' : 'light');
-      document.documentElement.dataset.theme = isDark ? 'dark' : 'light';
+      applySettingsTheme(isDark);
       localStorage.setItem('bizshieldai-memory', document.getElementById('memory-toggle').checked ? 'true' : 'false');
 
       // Always write lang/currency to localStorage immediately (works even without login)
       localStorage.setItem('bizshieldai-lang', selectedLang);
       localStorage.setItem('bizshieldai-currency', selectedCurrency);
+      try {
+        const existing = JSON.parse(localStorage.getItem('bizshieldai-user') || '{}');
+        localStorage.setItem('bizshieldai-user', JSON.stringify({ ...existing, language: selectedLang, currency: selectedCurrency }));
+      } catch (_) {
+        localStorage.setItem('bizshieldai-user', JSON.stringify({ language: selectedLang, currency: selectedCurrency }));
+      }
       document.dispatchEvent(new CustomEvent('bizshield:languageChange', { detail: { language: selectedLang } }));
 
       try {
@@ -407,7 +443,10 @@
       new bootstrap.Toast(toast, { delay: 3500 }).show();
     }
 
-    window.addEventListener('DOMContentLoaded', loadProfile);
+    window.addEventListener('DOMContentLoaded', () => {
+      initThemeSwitch();
+      loadProfile();
+    });
   </script>
 </body>
 </html>
