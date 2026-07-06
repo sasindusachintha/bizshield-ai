@@ -96,7 +96,7 @@ async function login(req, res) {
     res.status(500).json({ success: false, error: error.message || "Login failed" });
   }
 }
-
+ 
 async function getMe(req, res) {
   try {
     const user = await User.findById(req.user._id);
