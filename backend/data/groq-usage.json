@@ -1,0 +1,46 @@
+{
+  "days": {
+    "2026-07-08": {
+      "date": "2026-07-08",
+      "promptTokens": 44496,
+      "completionTokens": 26372,
+      "totalTokens": 70868,
+      "requests": 40,
+      "byModel": {
+        "llama-3.3-70b-versatile": {
+          "promptTokens": 44496,
+          "completionTokens": 26372,
+          "totalTokens": 70868,
+          "requests": 40
+        }
+      }
+    },
+    "2026-07-09": {
+      "date": "2026-07-09",
+      "promptTokens": 54042,
+      "completionTokens": 27347,
+      "totalTokens": 81389,
+      "requests": 47,
+      "byModel": {
+        "llama-3.3-70b-versatile": {
+          "promptTokens": 54042,
+          "completionTokens": 27347,
+          "totalTokens": 81389,
+          "requests": 47
+        }
+      }
+    }
+  },
+  "lastRequest": {
+    "at": "2026-07-09T07:39:10.477Z",
+    "model": "llama-3.3-70b-versatile",
+    "requestType": "chat.completions",
+    "promptTokens": 1737,
+    "completionTokens": 983,
+    "totalTokens": 2720
+  },
+  "lastRateLimit": {
+    "at": "2026-07-09T05:19:16.367Z",
+    "message": "429 {\"error\":{\"message\":\"Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kx0gqcv6ez6rqcm3y0s8ezyp` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99305, Requested 1497. Please try again in 11m32.928s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing\",\"type\":\"tokens\",\"code\":\"rate_limit_exceeded\"}}"
+  }
+}
