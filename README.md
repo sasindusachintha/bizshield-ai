@@ -126,6 +126,11 @@ npm run migrate:projects
 
 This reads the legacy `ideas`, `businessplans`, and `marketings` collections and converts them into Projects + ProjectDocuments. It's read-only — you can drop the old collections manually after verifying the migration.
 
+## 👤 Author
+
+**Sasindu**
+GitHub: [@sasindusachintha](https://github.com/sasindusachintha)
+
 ## 📄 License
 
 This project currently has no license specified.
